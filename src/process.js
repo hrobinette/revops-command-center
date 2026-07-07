@@ -8,6 +8,7 @@ import {
   insertFlags,
   clearFlagsForDeal,
   getDealCallsWithScores,
+  setDealHubspotId,
   resetAll,
 } from './db.js';
 import { listTranscriptFiles, readTranscript } from './ingest.js';
@@ -15,6 +16,7 @@ import { scoreTranscript } from './score.js';
 import { computeTrends } from './trends.js';
 import { computeFlags } from './flags.js';
 import { ELEMENTS } from './prompts/meddpicc.js';
+import { hubspotEnabled, upsertDeal, writeNoteToDeal, buildNoteBody } from './hubspot.js';
 
 const ABBR = {
   metrics: 'M',
@@ -28,12 +30,13 @@ const ABBR = {
 };
 
 function parseArgs(argv) {
-  const opts = { all: false, only: null, limit: null };
+  const opts = { all: false, only: null, limit: null, pushHubspot: false };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     if (a === '--all') opts.all = true;
     else if (a === '--only') opts.only = argv[++i];
     else if (a === '--limit') opts.limit = parseInt(argv[++i], 10);
+    else if (a === '--push-hubspot') opts.pushHubspot = true;
   }
   return opts;
 }
@@ -57,7 +60,13 @@ export async function runPipeline(opts = {}) {
     return { deals: [] };
   }
 
+  const pushHubspot = opts.pushHubspot && hubspotEnabled();
+  if (opts.pushHubspot && !hubspotEnabled() && !opts.quiet) {
+    console.log('⚠ --push-hubspot given but HUBSPOT_TOKEN is not set — skipping CRM writeback.');
+  }
+
   const touched = new Map(); // dealId -> deal row
+  const summaries = new Map(); // dealId -> { callNumber, summary } (latest call wins)
 
   for (const file of files) {
     if (!opts.all && (await isFileProcessed(file))) {
@@ -109,6 +118,11 @@ export async function runPipeline(opts = {}) {
       await insertScores(scoreRows);
 
       touched.set(deal.id, deal);
+      // keep the latest-call summary per deal for the HubSpot note
+      const prevSummary = summaries.get(deal.id);
+      if (!prevSummary || parsed.call_number >= prevSummary.callNumber) {
+        summaries.set(deal.id, { callNumber: parsed.call_number, summary: scored.summary });
+      }
     } catch (err) {
       console.error(`✗ ${file}: ${err.message}`);
     }
@@ -129,6 +143,19 @@ export async function runPipeline(opts = {}) {
     const flags = computeFlags(deal, trends, ctx);
     await clearFlagsForDeal(dealId);
     await insertFlags(flags);
+
+    if (pushHubspot) {
+      try {
+        const hsId = await upsertDeal({ name: deal.name });
+        await setDealHubspotId(dealId, hsId);
+        const summary = summaries.get(dealId)?.summary || '';
+        const body = buildNoteBody({ deal, trends, flags, summary });
+        await writeNoteToDeal({ dealId: hsId, body });
+        if (!opts.quiet) console.log(`   ↳ HubSpot: deal ${hsId} — note written (${flags.length} flag(s))`);
+      } catch (err) {
+        console.error(`   ✗ HubSpot push failed for ${deal.name}: ${err.message}`);
+      }
+    }
 
     results.push({ deal, trends, flags });
   }

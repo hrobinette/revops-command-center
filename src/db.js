@@ -110,6 +110,15 @@ export async function getFlagsForDeal(dealId) {
   return data;
 }
 
+/** Store the HubSpot deal id after upserting the deal in the CRM (Week 8). */
+export async function setDealHubspotId(dealId, hubspotDealId) {
+  const { error } = await supabase
+    .from('deals')
+    .update({ hubspot_deal_id: hubspotDealId })
+    .eq('id', dealId);
+  if (error) throw error;
+}
+
 /** Wipe flags for a deal before recomputing (flags are derived, not accumulated). */
 export async function clearFlagsForDeal(dealId) {
   const { error } = await supabase.from('flags').delete().eq('deal_id', dealId);
