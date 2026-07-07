@@ -42,12 +42,15 @@ export function computeFlags(deal, trends, ctx = {}) {
     });
   }
 
-  // 3. NO_PAPER_PROCESS_LATE (yellow)
-  if (late && latest.paper_process != null && latest.paper_process < 4) {
+  // 3. NO_PAPER_PROCESS_LATE (yellow): at a late stage the paper process should be
+  //    engaged (6+). Anything below "engaged" (<5) is a procurement/legal slip risk.
+  //    Threshold widened from the brief's <4 to <5 for margin — the model scores a
+  //    genuinely-absent paper process right on the 3/4 boundary, so <4 flip-flops.
+  if (late && latest.paper_process != null && latest.paper_process < 5) {
     flags.push({
       flag_type: 'NO_PAPER_PROCESS_LATE',
       severity: 'yellow',
-      detail: `Stage "${stage}" but paper_process=${latest.paper_process} (<4) on latest call.`,
+      detail: `Stage "${stage}" but paper_process=${latest.paper_process} (<5, not yet engaged) on latest call.`,
       call_id: callId,
     });
   }

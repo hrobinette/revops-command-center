@@ -53,7 +53,7 @@ npm test                        # full suite vs tests/expectations.json
 |---|---|---|
 | `NO_EB_LATE_STAGE` | 🔴 red | proposal+ and economic_buyer < 5 (latest call) |
 | `CHAMPION_DECLINE` | 🔴 red | champion score falls on 2+ consecutive calls |
-| `NO_PAPER_PROCESS_LATE` | 🟡 yellow | proposal+ and paper_process < 4 |
+| `NO_PAPER_PROCESS_LATE` | 🟡 yellow | proposal+ and paper_process < 5 (not yet engaged) |
 | `UNQUALIFIED` | 🟡 yellow | metrics < 4 **and** identify_pain < 4 (latest call) |
 | `COMPETITIVE_EXPOSURE` | 🟡 yellow | a named competitor **and** decision_criteria < 5 |
 
