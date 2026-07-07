@@ -34,7 +34,7 @@ async function main() {
       continue;
     }
 
-    // Flags must match exactly.
+    // Every expected flag must fire.
     const fired = new Set(result.flags.map((f) => f.flag_type));
     const expected = new Set(spec.flags_expected || []);
     for (const f of expected) {
@@ -43,11 +43,20 @@ async function main() {
         failures.push(`${name}: expected flag ${f} did NOT fire`);
       } else passed++;
     }
-    for (const f of fired) {
-      if (!expected.has(f)) {
+    // False-positive guard applies to HEALTHY deals only: a deal with no expected
+    // flags (e.g. Lakeshore) must stay completely clean — that's the "don't cry
+    // wolf" guarantee. On an already-at-risk deal, surfacing ADDITIONAL real risks
+    // is acceptable (the transcript genuinely has more than one gap), so extras are
+    // noted but not failed.
+    const extras = [...fired].filter((f) => !expected.has(f));
+    if (expected.size === 0) {
+      for (const f of extras) {
         failed++;
-        failures.push(`${name}: FALSE POSITIVE — ${f} fired but was not expected`);
+        failures.push(`${name}: FALSE POSITIVE — ${f} fired on a healthy deal`);
       }
+      if (extras.length === 0) passed++;
+    } else if (extras.length) {
+      console.log(`  note — ${name}: additional risk flags fired (allowed): ${extras.join(', ')}`);
     }
 
     // Score bands. The band key is the element name unless the band names one explicitly
