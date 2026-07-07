@@ -1,0 +1,43 @@
+{
+  "_comment": "Expected system behavior per deal. Derived from the brief's test table; RECONCILE the bands against 00_ANSWER_KEY.md once the answer key is in place. Rule: the set of flags that fire for a deal must EXACTLY equal flags_expected — any extra flag is a false-positive failure. Bands assert score ranges on a given call (default: latest call).",
+  "deals": {
+    "Lakeshore Fintech": {
+      "flags_expected": [],
+      "bands": {
+        "economic_buyer": { "min": 7 },
+        "champion": { "min": 6 }
+      }
+    },
+    "Harbor Health": {
+      "flags_expected": ["NO_EB_LATE_STAGE"],
+      "bands": {
+        "economic_buyer": { "max": 5, "call": 2 }
+      }
+    },
+    "Trellis Logistics": {
+      "flags_expected": ["CHAMPION_DECLINE"],
+      "bands": {
+        "champion": { "max": 5, "call": 3 }
+      }
+    },
+    "Bluepine Retail": {
+      "flags_expected": ["UNQUALIFIED"],
+      "bands": {
+        "metrics": { "max": 3 },
+        "identify_pain": { "max": 3 }
+      }
+    },
+    "NovaWorks": {
+      "flags_expected": ["NO_PAPER_PROCESS_LATE"],
+      "bands": {
+        "paper_process": { "max": 3 }
+      }
+    },
+    "Corvid Manufacturing": {
+      "flags_expected": ["COMPETITIVE_EXPOSURE"],
+      "bands": {
+        "decision_criteria": { "max": 4 }
+      }
+    }
+  }
+}
