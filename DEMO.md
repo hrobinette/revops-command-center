@@ -12,11 +12,42 @@
 
 ---
 
-## Format assumptions (adjust to taste)
+## Your slot: 15 min, audience = accelerator peers + instructor
 
-Written for an **~8–12 min live demo** to a mixed technical/business audience.
-Beats are tagged **[CORE]** (always do) and **[IF TIME]** (drop if short). A tight
-5-min version = beats 0, 2, 5, 6, 8.
+They're **technical** and building similar capstones, so lean into the *engineering
+decisions* — that's what peers relate to and what the instructor grades. Budget ~13 min
+presenting + ~2 min Q&A. Detailed talking points for each beat are in "The run-through" below.
+
+| Time | Beat | On screen | Thrust |
+|---|---|---|---|
+| 0:00–1:00 | **Hook** | you | The QBR-surprise pain + the one-line pitch |
+| 1:00–2:30 | **Architecture** | README diagram | The pipeline in one breath: LLM-scored → DB → rules-flagged → HubSpot + Slack → self-scheduled |
+| 2:30–5:00 | **Scoreboard** | terminal: `npm run process -- --all` | Lakeshore clean · Harbor 🔴 missing-EB · **Trellis 🔴 champion decline across 3 calls** (the human-misses moment) |
+| 5:00–6:00 | **In the CRM** | HubSpot: Harbor note | The rep's view — the agent's MEDDPICC scorecard on the deal |
+| 6:00–7:00 | **In Slack** | `#revops-command-center` | The manager's view — alerts + digest |
+| 7:00–9:30 | **⭐ Live moment** | terminal → Slack | Drop Cobalt, trigger the poll, watch Slack light up hands-off |
+| 9:30–10:30 | **Autonomy** | terminal: `systemctl list-timers` | It fires that same job every 15 min on its own |
+| 10:30–13:00 | **Engineering rigor** | terminal / slide | Model benchmark, test suite 15/0, isolation, robustness (the graded stuff) |
+| 13:00–13:30 | **Close** | you | Restate the transformation |
+| 13:30–15:00 | **Q&A** | — | (bank at the bottom) |
+
+**The one beat to expand for this audience is "Engineering rigor" (10:30–13:00)** — peers
+and instructors reward *how* you built it, not just that it demos. Technical-depth bank:
+
+- **Model choice was benchmarked, not assumed.** Ran Haiku 4.5, Sonnet 5, Opus 4.8 against a
+  ground-truth answer key. Haiku was cheaper but systematically *under-scored risk* — it missed
+  Harbor's missing economic buyer and NovaWorks' paper-process gap. Chose Sonnet 5: catches risk
+  without crying wolf. *"I picked the model with data, not vibes."*
+- **Tested against ground truth.** `npm test` = 15/0. Asserts score *bands* + exact flag behavior
+  (not exact scores — LLM scoring varies run-to-run), and **false positives fail the suite** — a
+  tool that flags healthy deals is as useless as one that misses dying ones.
+- **Flag thresholds are calibrated to real scoring distributions.** e.g. a flag that sat right on
+  the model's 3/4 scoring boundary was flip-flopping run-to-run; widened the threshold with margin
+  so it's stable. *This is the kind of detail that shows you actually ran it, repeatedly.*
+- **Robust to LLM output quirks.** Strips raw control chars before JSON.parse, retries once on
+  transient parse errors, generous `max_tokens` so adaptive-thinking output doesn't truncate.
+- **Isolated + idempotent.** Runs as its own service with its own credentials, fully separate from
+  the other agent on the box; transcripts are keyed by filename so re-runs never double-process.
 
 ---
 
