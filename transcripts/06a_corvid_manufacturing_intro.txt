@@ -1,0 +1,42 @@
+CALL TRANSCRIPT
+Deal: Corvid Manufacturing
+Call: 1 of 1 — Introduction
+Date: 2026-06-29
+Duration: 28 min
+Attendees: Marcus Cole (ShieldPoint, AE), Raj Patel (Corvid, IT Security Director)
+
+---
+
+Marcus: Raj, appreciate you making time. What kicked off this evaluation on your end?
+
+Raj: We're modernizing. Corvid has been a manufacturing company that reluctantly owns computers for thirty years, and the new CIO is changing that. Part of her mandate is cloud security tooling — we moved our ERP and supply chain systems to AWS eighteen months ago and our security stack didn't keep pace.
+
+Marcus: How far along is the evaluation?
+
+Raj: We've been talking to Clearmont for about six weeks. They came in through the CIO's network — she knows their CRO from a previous company. We've seen two demos and they've sent a proposal.
+
+Marcus: Okay, so we're joining mid-stream. Why take my call?
+
+Raj: Diligence, partly. Our procurement policy technically requires two vendors for anything over $75K. And partly — Clearmont's demo was slick but I couldn't tell you what we're actually evaluating them against. It felt like they were selling and we were nodding.
+
+Marcus: That's worth pausing on. Has your team written down what the tool needs to do? Requirements, evaluation criteria, anything?
+
+Raj: Not formally. The CIO's direction was "get us covered." Clearmont sort of defined the conversation — their demo became the de facto requirements list.
+
+Marcus: That's common and it's worth fixing regardless of who you pick. If Clearmont's feature list is the criteria, Clearmont wins by definition. What matters for a manufacturer with OT-adjacent systems is different from what matters for a SaaS company, and demos rarely surface that.
+
+Raj: Like what, specifically?
+
+Marcus: Network segmentation visibility between IT and OT environments, for one. Change detection on systems that can't be patched on normal cycles. Compliance mapping — are you under CMMC pressure with any defense-adjacent contracts?
+
+Raj: We are, actually. CMMC Level 2 comes up in two contract renewals next year. Clearmont never asked about that.
+
+Marcus: That would be near the top of my criteria list if I were you. Here's my proposal: before any demo from me, let's do a working session where we build your evaluation criteria — jointly, on paper, with your requirements, not mine or Clearmont's. Then you score both of us against it. If Clearmont wins on your criteria, they should win.
+
+Raj: That's a better process than the one we have, which is vibes. Let me get one of my engineers into that session. The complication is timing — the CIO wants a recommendation by end of July, and Clearmont's proposal has an expiration date on the pricing, which I'm told is a thing vendors do.
+
+Marcus: It is a thing vendors do. Two weeks is enough if we move. Can we get the working session on the calendar this week?
+
+Raj: Send me times. No promises on the outcome — Clearmont has a real head start and the CIO relationship. But you've earned the at-bat.
+
+--- END OF CALL ---

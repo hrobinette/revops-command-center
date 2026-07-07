@@ -8,7 +8,7 @@
         "champion": { "min": 6 }
       }
     },
-    "Harbor Health": {
+    "Harbor Health Systems": {
       "flags_expected": ["NO_EB_LATE_STAGE"],
       "bands": {
         "economic_buyer": { "max": 5, "call": 2 }
@@ -17,7 +17,8 @@
     "Trellis Logistics": {
       "flags_expected": ["CHAMPION_DECLINE"],
       "bands": {
-        "champion": { "max": 5, "call": 3 }
+        "champion": { "min": 6, "call": 1 },
+        "champion_late": { "element": "champion", "max": 5, "call": 3 }
       }
     },
     "Bluepine Retail": {

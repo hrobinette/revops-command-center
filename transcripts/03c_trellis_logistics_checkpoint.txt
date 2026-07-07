@@ -1,0 +1,42 @@
+CALL TRANSCRIPT
+Deal: Trellis Logistics
+Call: 3 of 3 — Checkpoint
+Date: 2026-06-30
+Duration: 22 min
+Attendees: Dana Whitfield (ShieldPoint, AE), Sam Reyes (Trellis, Director of Infrastructure), Victor Han (Trellis, IT Operations Lead)
+
+---
+
+Dana: Sam, thanks for keeping the checkpoint. And Victor, good to meet you — Sam, do you want to frame why Victor's joining?
+
+Sam: Yeah, so, as part of the reliability push, Victor's team is taking over more of the cloud operations surface. Anything that touches our cloud accounts now goes through his review. So he should hear this.
+
+Victor: To be upfront, I have concerns. Another agent, another set of API permissions, another vendor with read access to everything. We just spent a month hardening after the incident and my instinct is to reduce surface area, not add to it.
+
+Dana: Totally fair instinct. To clarify — no agents. Read-only API connectors, scoped per project, and we can walk your team through exactly which permissions and why.
+
+Victor: Read-only still means a third party holding credentials into our environment. What's your own security posture? If ShieldPoint gets breached, we get breached.
+
+Dana: We're SOC 2 Type II, annual pen tests, and I'll send our full trust package today. Happy to set up a session with our security team directly.
+
+Victor: Send the package. I'm not saying no, I'm saying this doesn't get rubber-stamped.
+
+Dana: Understood. Sam, where does this leave the recommendation to Karen? We're past end of quarter now.
+
+Sam: Yeah. So the recommendation didn't happen this quarter. Karen's asked Victor to weigh in first before anything goes to her, so realistically this is Victor's call to advance now.
+
+Dana: Sam, a month ago you said the insurance renewal in September was the forcing function. Does that still drive a decision before then?
+
+Sam: The insurance thing is real but there's talk of handling it with a compensating-controls memo this cycle and doing the tooling evaluation properly next year. Victor's idea, and honestly it might be the right call given everything on our plate.
+
+Victor: We can satisfy the insurer short-term without buying anything. Whether we should is a different question, but the option exists.
+
+Dana: Okay. What I'm hearing is: Victor's security review is the gate, and there's an active alternative that involves buying nothing. Victor, what would you need to see to be comfortable — not with the purchase, just with continuing evaluation?
+
+Victor: The trust package, a permissions walkthrough with my team, and honestly some time. Circle back after the renewal filing.
+
+Dana: Sam, anything you'd add?
+
+Sam: No, I think Victor covered it. Send the stuff over and we'll be in touch.
+
+--- END OF CALL ---

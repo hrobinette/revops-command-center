@@ -50,8 +50,10 @@ async function main() {
       }
     }
 
-    // Score bands.
-    for (const [element, band] of Object.entries(spec.bands || {})) {
+    // Score bands. The band key is the element name unless the band names one explicitly
+    // (lets a deal assert the same element on two different calls, e.g. a trend).
+    for (const [bandKey, band] of Object.entries(spec.bands || {})) {
+      const element = band.element || bandKey;
       const val = scoreOnCall(result.trends, element, band.call);
       const callLabel = band.call ? ` (call ${band.call})` : '';
       if (val == null) {

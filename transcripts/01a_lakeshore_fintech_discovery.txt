@@ -1,0 +1,48 @@
+CALL TRANSCRIPT
+Deal: Lakeshore Fintech
+Call: 1 of 2 — Discovery
+Date: 2026-06-08
+Duration: 34 min
+Attendees: Dana Whitfield (ShieldPoint, AE), Tom Okafor (Lakeshore, VP Security Operations)
+
+---
+
+Dana: Tom, thanks for making time. I know you found us after the webinar on cloud misconfiguration risk. Before I show you anything, I'd love to understand what prompted the outreach.
+
+Tom: Sure. Short version: we failed a finding in our last PCI audit. An S3 bucket with transaction logs was publicly readable for about six weeks before anyone caught it. Nothing was exfiltrated as far as we can tell, but the auditors flagged our detection process as inadequate, and honestly they were right.
+
+Dana: How are you catching misconfigurations today?
+
+Tom: Manually, mostly. We have a checklist the cloud team runs monthly, plus some homegrown scripts one of our engineers wrote. The scripts only cover AWS, and we've been expanding into Azure for our new lending product. So coverage is maybe sixty percent of our actual footprint on a good day.
+
+Dana: When you find something, how long does remediation take?
+
+Tom: We tracked it last quarter because I knew this conversation was coming. Mean time to remediate is about fourteen days from detection. Detection itself is the bigger problem — that bucket sat open for six weeks.
+
+Dana: Have you put a number on what this costs you?
+
+Tom: The audit remediation alone ran us about $340K last year — consultant hours, engineering time pulled off roadmap, the works. And that's before you count the re-audit fees. My CFO has that number memorized, which is not a position I enjoy.
+
+Dana: Understood. What does the timeline look like on your side?
+
+Tom: Our next PCI assessment window opens October 1. I need something deployed and generating evidence well before that. Realistically, if we're not in implementation by early August, I'm having a very uncomfortable conversation with our CISO.
+
+Dana: Who is your CISO?
+
+Tom: Priya Raman. She's aware I'm evaluating tools — this is actually one of her top three initiatives for the year, so budget exists. She'll want to be in the room before anything gets signed. She's direct, she'll ask hard questions about deployment time.
+
+Dana: I'd welcome that. Can we get her on the next call?
+
+Tom: Let me check her calendar. She's traveling next week but the week after should work. If you can show multi-cloud coverage and how the SOC 2 and PCI evidence automation works, that's what she'll care about.
+
+Dana: Done. One more thing — is anyone else in the evaluation? Other vendors?
+
+Tom: Not actively. We looked at building more of the homegrown stuff and decided against it. You came recommended by a peer at another payments company, so right now it's you versus the status quo, and the status quo just failed an audit.
+
+Dana: That's a fight I'll take. I'll send over a summary today, a deployment overview for Priya, and three proposed times for week after next.
+
+Tom: Perfect. Include the SOC 2 evidence piece in the summary — I want to forward it to our compliance lead so she's warmed up too.
+
+Dana: Will do. Thanks, Tom.
+
+--- END OF CALL ---

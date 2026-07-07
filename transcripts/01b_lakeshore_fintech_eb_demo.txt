@@ -1,0 +1,44 @@
+CALL TRANSCRIPT
+Deal: Lakeshore Fintech
+Call: 2 of 2 — Demo with CISO
+Date: 2026-06-22
+Duration: 41 min
+Attendees: Dana Whitfield (ShieldPoint, AE), Tom Okafor (Lakeshore, VP Security Operations), Priya Raman (Lakeshore, CISO)
+
+---
+
+Dana: Priya, thanks for joining. Tom gave me the background — the PCI finding, the October assessment window, the $340K remediation cost last year.
+
+Priya: He's briefed me too. I'll be blunt about what I need to see: coverage across AWS and Azure from day one, evidence automation that our auditors will actually accept, and a deployment that doesn't consume my team for a quarter. We don't have a quarter.
+
+Dana: All three are fair. Let me show you rather than tell you. [demo portion] This is a live environment mirroring a multi-cloud setup — here's the finding feed across both AWS and Azure accounts, prioritized by exposure.
+
+Priya: How does prioritization work? My team drowns in alerts already.
+
+Dana: Severity is weighted by actual exposure path, not just CVE score. That public bucket Tom mentioned would have surfaced as critical within about fifteen minutes of the policy change, with the exact IAM change that caused it.
+
+Tom: Fifteen minutes versus six weeks. That's the whole pitch, Priya.
+
+Priya: And the evidence side?
+
+Dana: Continuous control monitoring mapped to PCI DSS and SOC 2. Your compliance lead pulls a report instead of assembling screenshots. Customers typically cut evidence-gathering time by seventy to eighty percent.
+
+Priya: Deployment. Real number, not the brochure number.
+
+Dana: Read-only cloud connectors, no agents. Comparable fintech customers are fully deployed in two to three weeks. I'll connect you with one as a reference — similar size, also PCI-driven.
+
+Priya: Do that. Here's how a decision happens on our side: my security review, which is essentially this call plus the reference check. Then legal reviews the MSA — our redlines usually take two weeks, mostly around data handling terms. Then it goes to our CFO for sign-off. He's already aware; this is in my approved initiative budget, so it's sign-off, not persuasion.
+
+Dana: Who should I coordinate with on the legal and procurement side?
+
+Priya: Melissa Grant runs procurement. I'll introduce you this week. If the reference call goes well, send the MSA to her directly so legal can start in parallel.
+
+Tom: For decision criteria, so we're all aligned: multi-cloud coverage, audit evidence automation our assessor accepts, and deployment inside thirty days. Anything ShieldPoint can't hit on those three?
+
+Dana: Nothing. I'll put all three in writing with the proposal.
+
+Priya: Good. Target signature by mid-July, deployment complete by mid-August, evidence flowing before the October window. If your reference confirms the deployment story, I don't see obstacles.
+
+Dana: You'll have the reference intro today and the proposal Thursday.
+
+--- END OF CALL ---

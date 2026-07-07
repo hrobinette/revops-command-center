@@ -1,0 +1,42 @@
+CALL TRANSCRIPT
+Deal: Trellis Logistics
+Call: 1 of 3 — Discovery
+Date: 2026-05-27
+Duration: 32 min
+Attendees: Dana Whitfield (ShieldPoint, AE), Sam Reyes (Trellis, Director of Infrastructure)
+
+---
+
+Dana: Sam, thanks for the intro from the conference. You said you'd been looking for something like this for a year.
+
+Sam: Longer, honestly. We run about four hundred cloud workloads across AWS and GCP supporting our routing platform. Our security posture is, generously, artisanal. Every account is configured slightly differently depending on which engineer set it up and in what year.
+
+Dana: What finally made this a priority?
+
+Sam: Two things. A customer — one of our big retail shippers — sent us a security questionnaire that took us three weeks to answer, and half the answers were embarrassing. And our cyber insurance renewal came back with a premium hike and a list of controls they want evidence of. Insurance is real money: the hike was about $90K.
+
+Dana: So there's a hard external driver.
+
+Sam: There is, and I want to be the one who fixes it. I've been telling leadership for two years that we're carrying risk we can't see. Now the insurance company is saying it for me, which is very validating.
+
+Dana: Who ultimately signs off on a purchase like this?
+
+Sam: Our VP of Engineering, Karen Liu — I report to her. She's supportive in principle; she asked me to bring her a recommendation by end of quarter. I basically have a mandate to run this evaluation.
+
+Dana: Anyone else evaluating alongside us?
+
+Sam: I'm looking at one other vendor, Clearmont, but frankly their GCP support looked thin in the demo. You do GCP natively, right? That's a hard requirement — sixty percent of our workloads are there.
+
+Dana: Natively, yes. GCP was our second-supported cloud, it's mature.
+
+Sam: Good. Here's what I want to do: get me a trial in our sandbox environment. I'll run it against a subset of our GCP accounts and I'll build the internal case myself. I already started a doc comparing you and Clearmont. I'll share it with you — I want your help making sure your column is accurate.
+
+Dana: You're doing my job for me. I'll take it.
+
+Sam: I move fast when I own something. Let's do a working session next week once the trial is live — I'll bring findings, you bring someone technical who can answer deep questions.
+
+Dana: Booked. I'll send trial access by Thursday and calendar invites today.
+
+Sam: Perfect. And send me whatever you have on insurance-driven deployments — case studies where a customer's premium actually came down. That's the argument that ends this conversation internally.
+
+--- END OF CALL ---

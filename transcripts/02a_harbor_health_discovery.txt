@@ -1,0 +1,42 @@
+CALL TRANSCRIPT
+Deal: Harbor Health Systems
+Call: 1 of 2 — Discovery
+Date: 2026-06-04
+Duration: 29 min
+Attendees: Marcus Cole (ShieldPoint, AE), Leah Brandt (Harbor Health, Security Manager)
+
+---
+
+Marcus: Leah, great to connect. You mentioned in your note that cloud visibility is the issue. Tell me more.
+
+Leah: So we migrated most of our patient-facing apps to Azure over the last two years, and our security tooling didn't come along for the ride. I genuinely could not tell you today how many storage accounts we have with public endpoints. That keeps me up at night given we're covered entities under HIPAA.
+
+Marcus: Has anything happened, or is this preventative?
+
+Leah: Near miss last quarter. A contractor spun up a test environment with real patient data — de-identified, supposedly, but our review found it wasn't fully scrubbed. We caught it in nine days. Nine days of PHI-adjacent data sitting in an unmonitored resource group.
+
+Marcus: What would an incident like that cost if it went the distance?
+
+Leah: HIPAA fines are per-record. I haven't built the exact model, but with our patient volume it's a number with a lot of zeros. Mostly I just know it would be existential for my job specifically.
+
+Marcus: Fair. Who owns the budget for a tool like this?
+
+Leah: That would be Rick Delgado, our CISO. But honestly, let me handle Rick. I know how he thinks and I know how to package things for him. If I bring him in too early he'll start asking about consolidating vendors and we'll be in evaluation purgatory for six months.
+
+Marcus: I hear you. It's usually helpful for us to at least understand his priorities directly, even briefly —
+
+Leah: Trust me on this one. I've gotten three tools approved this way. I socialize it internally, I build the deck, and by the time Rick sees it, it's a formality. What I need from you is ammunition: the HIPAA control mapping, a couple of healthcare case studies, and pricing I can defend.
+
+Marcus: I can get you all three. What's your timeline?
+
+Leah: I want to bring this to Rick at our July planning meeting. If it goes the way I expect, we could start procurement in August.
+
+Marcus: And the evaluation itself — is it just ShieldPoint?
+
+Leah: I looked at two others briefly. One was way over budget, the other doesn't do Azure well. You're the front-runner, assuming the healthcare references check out.
+
+Marcus: They will. I'll send the HIPAA mapping and case studies by Friday, plus a draft of talking points you can adapt for Rick.
+
+Leah: Perfect. This is going to be an easy internal sell. The near miss did half the work for me.
+
+--- END OF CALL ---

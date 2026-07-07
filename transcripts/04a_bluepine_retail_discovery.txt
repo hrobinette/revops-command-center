@@ -1,0 +1,50 @@
+CALL TRANSCRIPT
+Deal: Bluepine Retail
+Call: 1 of 1 — Discovery
+Date: 2026-06-18
+Duration: 27 min
+Attendees: Marcus Cole (ShieldPoint, AE), Jenny Kowalski (Bluepine, Senior Security Engineer)
+
+---
+
+Marcus: Jenny, thanks for taking the call. You downloaded our cloud security benchmark report — what caught your eye?
+
+Jenny: Honestly, I download a lot of those. We're always kind of keeping tabs on what's out there. The posture management space moves fast.
+
+Marcus: Sure. Tell me about your environment.
+
+Jenny: We're mostly AWS, some workloads moving to Azure eventually, maybe next year. Retail platform, e-commerce, the usual PCI scope questions.
+
+Marcus: How do you handle posture monitoring today?
+
+Jenny: We have some native AWS tooling turned on — Security Hub, Config. It's fine. Coverage is okay. There are gaps, probably, but nothing's on fire.
+
+Marcus: When you say gaps — anything specific? Findings that slipped through, audit issues?
+
+Jenny: Nothing I could point to concretely. It's more of a feeling that we've outgrown the duct-tape stage. But I couldn't tell you we've had an incident because of it.
+
+Marcus: Has anyone asked you to evaluate tools in this space? Is there an initiative behind this?
+
+Jenny: Not formally. My manager knows I keep an eye on the market. If I found something compelling, I could probably start a conversation. Budget-wise, I have no idea what we'd have to work with — that's above my pay grade.
+
+Marcus: If you did move forward, what would success look like? What would need to be true in a year?
+
+Jenny: Good question. Fewer manual reviews, I guess? My team spends a decent chunk of time on config reviews before releases. I've never actually measured how much.
+
+Marcus: Ballpark — hours a week?
+
+Jenny: Genuinely couldn't say. Some weeks a lot, some weeks none. It's spread across four people.
+
+Marcus: Okay. And the PCI angle — when's your next assessment, any pressure there?
+
+Jenny: We passed our last one fine. Next one's... spring, I think? Compliance handles the schedule.
+
+Marcus: Got it. Here's what I'd suggest: rather than a demo now, let me send you our self-serve sandbox and the benchmark data for retail specifically. If something in there makes you go "oh, that's us," we talk again. And if you ever want to quantify that config-review time, I have a worksheet customers use — it tends to be the number that turns browsing into a business case.
+
+Jenny: Sure, send it all over. Like I said, just seeing what's out there right now. But this was useful.
+
+Marcus: No pressure on timeline. I'll check in next quarter unless something changes on your end.
+
+Jenny: Sounds good.
+
+--- END OF CALL ---

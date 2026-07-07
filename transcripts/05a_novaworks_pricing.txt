@@ -1,0 +1,48 @@
+CALL TRANSCRIPT
+Deal: NovaWorks
+Call: 1 of 1 — Pricing Discussion
+Date: 2026-06-26
+Duration: 25 min
+Attendees: Dana Whitfield (ShieldPoint, AE), Alex Fontaine (NovaWorks, Head of Security), Devon Marsh (NovaWorks, Staff Security Engineer)
+
+---
+
+Dana: Alex, Devon — good to reconnect. You've had the demo, Devon ran the technical eval. Where did you land?
+
+Alex: We're in. Devon, give her the summary.
+
+Devon: The POC found eighteen real issues in week one, three of them things we genuinely didn't know about. The GCP coverage is better than what we've cobbled together internally. Technically, I have no objections.
+
+Alex: So let's talk numbers. We want to move on this quarter.
+
+Dana: Love to hear it. Based on your workload count, you're looking at $96K annually on the standard tier, $84K if you commit to two years.
+
+Alex: The two-year number works. We have room in the security budget this half — I'd rather lock pricing now than re-fight for it next year.
+
+Dana: Great. So walk me through what happens on your side between "the number works" and a signed agreement.
+
+Alex: Honestly? I say yes, and it happens. We're a four-hundred-person company, we move fast. That's the whole point of being here instead of a big enterprise.
+
+Dana: Sure — but even fast companies usually have someone in legal look at an MSA, a security review of vendors, a procurement step. Who handles those at NovaWorks?
+
+Alex: We have a fractional general counsel who reviews contracts. I don't think a security tool MSA is going to be controversial. It'll be fine.
+
+Dana: Has your GC seen our MSA yet? I can send it today so review runs in parallel.
+
+Alex: Not yet. Send it, sure. But really, don't overthink this — when we bought our SIEM last year the whole thing took, what, Devon, three weeks?
+
+Devon: Closer to two months, actually. The DPA back-and-forth took a while. And didn't finance push it a quarter because it landed after the budget freeze date?
+
+Alex: That was a weird quarter. This is different, the budget's already allocated.
+
+Dana: Devon raises a good point though — is there a finance cutoff for this quarter I should know about? A date after which POs don't process?
+
+Alex: There's some date, I don't track it. Look — Dana, the answer is yes. Get us the order form with the two-year pricing, we'll get it signed, and let's target kickoff for mid-July. I want this deployed before our board meeting in September so I can show it on the security update.
+
+Dana: I'll send the order form and the MSA today. Can you intro me to your GC and whoever cuts the PO, so I can help chase the paper?
+
+Alex: I'll forward your stuff to the right people. Don't worry, Dana. This is happening.
+
+Dana: Then I'll worry just enough for both of us. Order form's on the way.
+
+--- END OF CALL ---

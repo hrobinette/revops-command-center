@@ -1,0 +1,46 @@
+CALL TRANSCRIPT
+Deal: Trellis Logistics
+Call: 2 of 3 — Trial Review
+Date: 2026-06-12
+Duration: 24 min
+Attendees: Dana Whitfield (ShieldPoint, AE), Sam Reyes (Trellis, Director of Infrastructure)
+
+---
+
+Dana: Sam, good to see you. We were supposed to do this session last week — everything okay on your end?
+
+Sam: Yeah, sorry about the reschedules. Things got busy. We had a platform incident, unrelated, but it ate everyone's week.
+
+Dana: No problem. How's the trial going? The telemetry shows the connectors are live on four GCP projects.
+
+Sam: It's going fine. The findings are legit — it flagged a couple of things in the first hour that I knew about and a couple I didn't, which is the point.
+
+Dana: Last time you mentioned building a comparison doc against Clearmont. How's that shaping up?
+
+Sam: It's... in progress. Honestly I haven't touched it in a week or so. Priorities are shifting a bit internally. The incident I mentioned kicked off a reliability push, and Karen's attention is very much on uptime right now, not security posture.
+
+Dana: Does that change the end-of-quarter recommendation timeline?
+
+Sam: Probably not? I still think I can get it in front of her. It might just not be the headline item it was a month ago.
+
+Dana: What about the insurance renewal — that deadline hasn't moved, right?
+
+Sam: No, that's still real. Renewal docs are due in September. That's the thing keeping this alive, honestly.
+
+Dana: Is there anything I can do to make the internal case easier while your bandwidth is squeezed? I could draft the comparison doc for you — clearly labeled as vendor-provided, but it saves you the hours.
+
+Sam: Maybe. Send me something and I'll see if it's usable.
+
+Dana: Will do. And the working session with our engineer — you had deep technical questions queued up. Should we reschedule that?
+
+Sam: Let's hold off on that for now. I don't want to burn the technical deep-dive until I know this is moving. Let me get through the next two weeks.
+
+Dana: Okay. Can we at least put a checkpoint on the calendar? Two weeks out?
+
+Sam: Sure, send an invite. I might need to move it, but send it.
+
+Dana: Done. And Sam — straight question. On a scale of one to ten, how alive is this?
+
+Sam: Seven. Was a nine. The insurance thing keeps it from going lower. Just give me a couple weeks.
+
+--- END OF CALL ---

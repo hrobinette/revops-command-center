@@ -1,0 +1,38 @@
+CALL TRANSCRIPT
+Deal: Harbor Health Systems
+Call: 2 of 2 — Proposal Review
+Date: 2026-06-25
+Duration: 26 min
+Attendees: Marcus Cole (ShieldPoint, AE), Leah Brandt (Harbor Health, Security Manager)
+
+---
+
+Marcus: Leah, you've had the proposal for a week. Where's your head at?
+
+Leah: It's good. The HIPAA mapping doc was exactly what I needed — I lifted half of it straight into my deck for Rick. Pricing is a little above where I wanted, but the three-year term discount helps.
+
+Marcus: Speaking of Rick — the July planning meeting is what, two weeks out? Any chance we could do fifteen minutes with him before then? Even just so he can put a face to the vendor. In my experience it de-risks the meeting for you.
+
+Leah: I appreciate the thought, but no. His calendar is a war zone and if I request vendor time it signals this is a big decision, which is the opposite of the framing I want. My whole approach is: this is an obvious, contained, already-scoped fix. Vendor calls make things feel big.
+
+Marcus: Okay. Can I ask — has Rick seen anything yet? The deck, the pricing?
+
+Leah: Not yet. I don't share drafts. He'll see the finished version at the meeting.
+
+Marcus: And you're confident on budget? The proposal is $118K annually — do you know what pool that comes from?
+
+Leah: There's a security tooling line item. I don't have visibility into exactly what's left in it this year, but Rick moves money around when he wants something. If he's bought in, budget appears.
+
+Marcus: What happens if the meeting doesn't go the way you expect?
+
+Leah: It will. But worst case, it slips to the September cycle. Look, Marcus, I know you'd feel better with Rick on a call. I'm telling you the fastest path here runs through me. Can you get me one more thing — a one-pager on deployment effort? He always asks what it costs us in engineering hours.
+
+Marcus: I'll have it to you tomorrow. And the redline process — have you looped in legal or procurement at all, so we're not starting cold in August?
+
+Leah: Not yet. One step at a time. Rick first, then process.
+
+Marcus: Understood. I'll send the one-pager, and let's talk right after the planning meeting.
+
+Leah: The day after. I'll have good news.
+
+--- END OF CALL ---
