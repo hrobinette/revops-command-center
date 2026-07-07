@@ -49,6 +49,27 @@ npm run process -- --all --notify-slack   # also post red-flag alerts + a health
 npm test                        # full suite vs tests/expectations.json
 ```
 
+## Scheduling (autonomous runs)
+
+Two systemd timers make it hands-off — unit files in `deploy/systemd/`:
+
+- **Poll** (`revops-poll.timer`, every 15 min) → `bin/scheduled-run.sh`: processes any
+  *new* transcripts and syncs to HubSpot + Slack. Idle-safe — silent when nothing's new.
+- **Monday digest** (`revops-digest.timer`, Mon 13:00 UTC ≈ 9am ET) → `bin/post-digest.sh`:
+  posts a full deal-health digest to Slack.
+
+Install once (root):
+
+```bash
+cp deploy/systemd/revops-*.service deploy/systemd/revops-*.timer /etc/systemd/system/
+systemctl daemon-reload
+systemctl enable --now revops-poll.timer revops-digest.timer
+systemctl list-timers 'revops-*'          # confirm they're scheduled
+```
+
+Logs: `journalctl -u revops-poll` / `-u revops-digest`, plus `logs/scheduled.log`.
+Disable: `systemctl disable --now revops-poll.timer revops-digest.timer`.
+
 ## Risk flags
 
 | Flag | Severity | Fires when |

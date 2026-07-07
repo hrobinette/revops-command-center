@@ -1,0 +1,9 @@
+[Unit]
+Description=RevOps Command Center — poll new transcripts, sync HubSpot + Slack
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/root/revops-command-center
+ExecStart=/root/revops-command-center/bin/scheduled-run.sh

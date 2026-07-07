@@ -1,0 +1,10 @@
+[Unit]
+Description=RevOps Command Center Monday digest
+
+[Timer]
+# 13:00 UTC Monday ~= 8am EST / 9am EDT
+OnCalendar=Mon *-*-* 13:00:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target
