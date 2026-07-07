@@ -1,0 +1,36 @@
+CALL TRANSCRIPT
+Deal: Meridian Freight
+Call: 1 of 1 — Proposal Review
+Date: 2026-07-07
+Duration: 22 min
+Attendees: Marcus Cole (ShieldPoint, AE), Ryan Delgado (Meridian Freight, IT Security Lead)
+
+---
+
+Marcus: Ryan, thanks for the time. You've had the proposal a few days — what's your read?
+
+Ryan: Honestly, I like it. The multi-cloud coverage is exactly what we've been missing, and the SOC 2 evidence automation would save my team a ton of manual work. I'm sold.
+
+Marcus: Great to hear. Since we're at the proposal stage, I want to make sure the right people are involved to move this forward. Who signs off on a purchase this size on your end?
+
+Ryan: That'd be our CFO, Angela. But don't worry about her — I'll socialize it internally and bring her the recommendation. She trusts my judgment on security tooling.
+
+Marcus: Understood. It'd help me to get even 15 minutes with Angela directly — walk her through the ROI numbers, answer any budget questions —
+
+Ryan: I really don't think that's necessary. She's slammed, and honestly she'd just defer to me. Let me handle the internal conversation.
+
+Marcus: Okay. What's driving the timing — is there a deadline pushing this?
+
+Ryan: We had a near-miss last quarter — an exposed storage bucket we caught internally, but it rattled leadership. There's appetite to fix our posture. Cost us a few days of scramble and some credibility, though I couldn't put an exact dollar figure on it.
+
+Marcus: That makes sense. On process — once you've got internal buy-in, what do procurement and legal review look like on your side?
+
+Ryan: Good question. I honestly haven't looked into that. We haven't bought a tool this size in a while — I assume Angela's team handles it? I'd have to check.
+
+Marcus: No problem, we can map that together. And competitively — are you evaluating anyone else alongside us?
+
+Ryan: Not seriously. We looked at one other vendor months ago but didn't love them. You're the front-runner.
+
+Marcus: Appreciate that. So next step — you'll take the proposal to Angela?
+
+Ryan: Yep, I'll get it in front of her and circle back. Should be quick.
