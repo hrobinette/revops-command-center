@@ -1,0 +1,32 @@
+CALL TRANSCRIPT
+Deal: Cobalt Systems
+Call: 1 of 1 — Proposal Review
+Date: 2026-07-14
+Duration: 19 min
+Attendees: Dana Whitfield (ShieldPoint, AE), Priya Nair (Cobalt Systems, Cloud Engineering Manager)
+
+---
+
+Dana: Priya, thanks for hopping on. You've seen the proposal — where's your head at?
+
+Priya: It's solid. The coverage looks good and your team's been responsive. I'm leaning your way.
+
+Dana: Good to hear. You mentioned last time you're also looking at Clearmont — where does that stand?
+
+Priya: Yeah, Clearmont's still in the mix. Leadership likes that they're the name everyone knows. Honestly the two of you look pretty similar from where I sit — I haven't fully pinned down what we're actually deciding on.
+
+Dana: That's useful to know. If it'd help, I can put together a side-by-side on the criteria that matter most for Cobalt — coverage, deployment time, evidence automation —
+
+Priya: Maybe. We haven't really defined the must-haves as a group yet. It's a bit loose.
+
+Dana: Understood. And on approval — who owns the final sign-off and budget on your side?
+
+Priya: That'd be our VP of Engineering, but she's not really in the weeds on this. I'm driving it and I'll make the call to her when we're ready. No need to loop her in yet.
+
+Dana: Got it. Any deadline pushing the timing?
+
+Priya: Not a hard one. We'd like to have something in place this quarter, but it could slip.
+
+Dana: Okay. So next step — should I build that comparison against Clearmont for you?
+
+Priya: Sure, send it over and I'll take a look. I'll keep you posted on where we land.
