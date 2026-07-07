@@ -17,6 +17,7 @@ import { computeTrends } from './trends.js';
 import { computeFlags } from './flags.js';
 import { ELEMENTS } from './prompts/meddpicc.js';
 import { hubspotEnabled, upsertDeal, writeNoteToDeal, buildNoteBody } from './hubspot.js';
+import { slackEnabled, postDigest, postAlert } from './slack.js';
 
 const ABBR = {
   metrics: 'M',
@@ -30,13 +31,14 @@ const ABBR = {
 };
 
 function parseArgs(argv) {
-  const opts = { all: false, only: null, limit: null, pushHubspot: false };
+  const opts = { all: false, only: null, limit: null, pushHubspot: false, notifySlack: false };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     if (a === '--all') opts.all = true;
     else if (a === '--only') opts.only = argv[++i];
     else if (a === '--limit') opts.limit = parseInt(argv[++i], 10);
     else if (a === '--push-hubspot') opts.pushHubspot = true;
+    else if (a === '--notify-slack') opts.notifySlack = true;
   }
   return opts;
 }
@@ -158,6 +160,25 @@ export async function runPipeline(opts = {}) {
     }
 
     results.push({ deal, trends, flags });
+  }
+
+  // Slack delivery: per-deal alerts for red flags + a health digest of everything.
+  if (opts.notifySlack && !slackEnabled() && !opts.quiet) {
+    console.log('⚠ --notify-slack given but SLACK_BOT_TOKEN/SLACK_CHANNEL not set — skipping Slack.');
+  }
+  if (opts.notifySlack && slackEnabled() && results.length) {
+    try {
+      for (const { deal, flags } of results) {
+        if (flags.some((f) => f.severity === 'red')) {
+          await postAlert(deal, flags);
+          if (!opts.quiet) console.log(`   ↳ Slack alert: ${deal.name}`);
+        }
+      }
+      await postDigest(results);
+      if (!opts.quiet) console.log('   ↳ Slack digest posted');
+    } catch (err) {
+      console.error(`   ✗ Slack notify failed: ${err.message}`);
+    }
   }
 
   if (!opts.quiet) printSummary(results);

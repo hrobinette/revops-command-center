@@ -44,6 +44,8 @@ npm run process                 # process new (unprocessed) transcripts
 npm run process -- --all        # wipe + reprocess everything
 npm run process -- --only lakeshore   # single-deal checkpoint run
 npm run process -- --limit 1    # process just the first transcript, end to end
+npm run process -- --all --push-hubspot   # also upsert deals + write MEDDPICC notes to HubSpot
+npm run process -- --all --notify-slack   # also post red-flag alerts + a health digest to Slack
 npm test                        # full suite vs tests/expectations.json
 ```
 
