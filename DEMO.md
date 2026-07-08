@@ -25,7 +25,7 @@ presenting + ~2 min Q&A. Detailed talking points for each beat are in "The run-t
 | 2:30–5:00 | **Scoreboard** | terminal: `npm run process -- --all` | Lakeshore clean · Harbor 🔴 missing-EB · **Trellis 🔴 champion decline across 3 calls** (the human-misses moment) |
 | 5:00–6:00 | **In the CRM** | HubSpot: Harbor note | The rep's view — the agent's MEDDPICC scorecard on the deal |
 | 6:00–7:00 | **In Slack** | `#revops-command-center` | The manager's view — alerts + digest |
-| 7:00–9:30 | **⭐ Live moment** | terminal → Slack | Drop Cobalt, trigger the poll, watch Slack light up hands-off |
+| 7:00–9:30 | **⭐ Live moment** | Slack | **Drag a transcript into the Slack channel** → the bot scores it and replies with the red-flag alert, live — no terminal |
 | 9:30–10:30 | **Autonomy** | terminal: `systemctl list-timers` | It fires that same job every 15 min on its own |
 | 10:30–13:00 | **Engineering rigor** | terminal / slide | Model benchmark, test suite 15/0, isolation, robustness (the graded stuff) |
 | 13:00–13:30 | **Close** | you | Restate the transformation |
@@ -56,16 +56,20 @@ and instructors reward *how* you built it, not just that it demos. Technical-dep
 Run these ~5 minutes before you're up:
 
 - [ ] **Screen layout:** three things visible/tabbed — the **Slack `#revops-command-center`** channel, **HubSpot deals** list, and a **terminal** in `~/revops-command-center`.
-- [ ] **Pause the auto-timer so it doesn't fire mid-demo** (you'll trigger runs on cue):
-      `systemctl stop revops-poll.timer`  *(re-enable after: `systemctl start revops-poll.timer`)*
+- [ ] **Turn autonomy ON for the demo** (so the "it runs itself" beat is true and `list-timers`
+      shows it): `systemctl enable --now revops-poll.timer revops-digest.timer`. An idle poll firing
+      mid-demo is harmless (silent — nothing new to score), and the live moment uses the Slack
+      listener, not the timer. Turn it back off after (see "After the demo").
 - [ ] **Refresh to a clean state** so Slack/HubSpot show current scores:
       `npm run process -- --all --push-hubspot --notify-slack`
       *(this reposts a fresh digest — do it early so the channel looks current)*
-- [ ] **Stage the live transcript:** `demo/incoming/` holds two ready-to-drop at-risk
-      transcripts — `cobalt_systems.txt` (fires 🔴 NO_EB_LATE_STAGE + competitive/paper/unqualified)
-      and `meridian_freight.txt` (fires 🔴 NO_EB_LATE_STAGE). Use a fresh one per run.
-      Neither is in `transcripts/`, so the canonical pipeline stays the six story deals.
-      *(Note: an earlier test left a "Meridian Freight" deal in HubSpot — delete it there for a spotless CRM, or ignore it.)*
+- [ ] **Start the Slack listener** (this powers the live drag-and-drop). In a spare terminal, run
+      `npm run listen` and leave it running — wait for `⚡ … running (Socket Mode)`. Stop it after
+      the demo with Ctrl+C.
+- [ ] **Have a transcript file on your laptop to drop into Slack.** The three staged at-risk ones
+      live server-side in `demo/incoming/` (`cobalt_systems.txt`, `meridian_freight.txt`,
+      `northstar_capital.txt`) — download one to your laptop beforehand (or keep your own handy).
+      They're out of `transcripts/`, so the canonical pipeline stays the six story deals.
 - [ ] **Backup proof ready:** a browser tab with the HubSpot notes + a terminal ready to run `npm test`, in case live API is slow.
 
 ---
@@ -90,8 +94,12 @@ in two **browser tabs**. You're just flipping between a terminal and two tabs.
 | Scoreboard | Terminal | `npm run process -- --all` → talk over the table |
 | In the CRM | HubSpot tab | Open **Harbor Health** → Notes |
 | In Slack | Slack tab | Scroll the channel |
-| ⭐ Live moment | Terminal → Slack tab | Paste the 2 live commands, then **switch to Slack** and wait for the alert to land |
+| ⭐ Live moment | **Slack tab** | **Drag the transcript file into the channel** and send — the bot replies with the scorecard right there. No terminal. |
 | Autonomy | Terminal | `systemctl list-timers 'revops-*'` |
+
+Note: the Slack listener (`npm run listen`) runs in its own terminal, started before the demo — you
+don't touch it during. So during the demo you're mostly in Slack + HubSpot, dipping into the terminal
+only for the scoreboard and autonomy beats.
 
 **Operator tips:** connect the SSH session *before* you start (don't log in on stage); keep every
 command in `demo/COMMANDS.md` and **paste, don't type**; run the clean-state refresh ~5 min early;
@@ -138,18 +146,20 @@ Switch to **`#revops-command-center`**.
 > weeks before it would've surfaced at the QBR."
 
 ### Beat 5 — THE LIVE MOMENT (2 min) [CORE — this is the wow]
-> "Let me show you it's real. A rep just finished a call — here's the transcript."
+> "Let me show you it's real, right here in Slack. A rep just finished a call — I'll drop
+> the transcript straight into the channel."
 
-Drop the new transcript and trigger the exact job the timer runs:
-```bash
-cp demo/incoming/cobalt_systems.txt transcripts/
-systemctl start revops-poll.service        # identical to what fires every 15 min
-```
-Narrate while it scores (~10–15s): *"No human touched this. It's detecting the new
-transcript, scoring it, updating HubSpot, posting to Slack…"*
-Then **switch to Slack** — a fresh 🔴 alert for **Cobalt Systems** appears live.
-> "That's the whole thesis: rep finishes the call, and before they're back at their
-> desk, the deal's scored, the CRM's updated, and the manager already knows."
+**Drag the transcript file into `#revops-command-center`** (from your laptop) and send it.
+Narrate while it scores (~15s): *"No terminal, no dashboard — I just dropped a call into Slack.
+The bot is downloading it, scoring all eight MEDDPICC elements, writing to HubSpot…"*
+Moments later the bot replies **in the channel**: 📥 *Got it — scoring…* then a **scorecard with
+the 🔴 red flag**.
+> "That's the whole thesis — and it's the real product experience. A rep drops the call into Slack,
+> and before they're back at their desk it's scored, in the CRM, and the manager's been alerted.
+> No one touched a terminal."
+
+*Fallback if the drag/listener misbehaves:* run it from the terminal instead —
+`cp demo/incoming/cobalt_systems.txt transcripts/ && systemctl start revops-poll.service` — then switch to Slack.
 
 ### Beat 6 — And it runs itself (45s) [CORE]
 ```bash
@@ -178,21 +188,24 @@ Three credibility points:
 
 ## The live moment — exact mechanics & safety
 
-- **Stage a fresh transcript each run.** Processed files are skipped (idempotent), so for
-  each rehearsal use a transcript with a **new deal name**, or reset (below).
-- **Command recap:**
+- **Primary path (Slack drag-and-drop):** with `npm run listen` running, drag a transcript file
+  from your laptop into `#revops-command-center`. The bot saves it, scores it, syncs HubSpot, and
+  replies with the scorecard. That's it — no terminal.
+- **Have the file on your laptop.** The staged transcripts live server-side in `demo/incoming/`;
+  download one (or use your own). Each drop needs a **fresh deal name** — re-dropping the same
+  filename is skipped as already-processed (the bot will say it couldn't score it). Use a different
+  staged file each rehearsal, or reset (below).
+- **Terminal fallback** (if the drag/listener misbehaves):
   ```bash
-  cp demo/incoming/cobalt_systems.txt transcripts/     # drop the "new call"
-  systemctl start revops-poll.service                  # what the timer runs
-  # (or, without systemd:)  npm run process -- --push-hubspot --notify-slack
+  cp demo/incoming/cobalt_systems.txt transcripts/ && systemctl start revops-poll.service
+  # (or without systemd:)  npm run process -- --only cobalt --push-hubspot --notify-slack
   ```
-- **Reset between rehearsals** (so you can re-run the same deal): remove it from the DB.
-  A throwaway one-liner:
+- **Reset a deal between rehearsals** (so you can re-drop the same one):
   ```bash
-  node -e "import('./src/db.js').then(async d=>{const {data}=await d.supabase.from('deals').select('id').eq('name','Cobalt Systems').maybeSingle().then(r=>r); if(data){await d.supabase.from('deals').delete().eq('id',data.id);} });" \
-    ; rm -f transcripts/cobalt_systems.txt
+  node --input-type=module -e "import { supabase } from './src/db.js'; const r = await supabase.from('deals').select('id').eq('name','Cobalt Systems').maybeSingle(); if (r.data) { await supabase.from('deals').delete().eq('id', r.data.id); console.log('reset'); }"
+  rm -f transcripts/cobalt_systems.txt
   ```
-  *(Or just keep 2–3 differently-named staged transcripts and use a fresh one each time.)*
+  *(Simplest: rotate through the three staged transcripts — cobalt / meridian / northstar — one per run.)*
 
 ## Fallback plan (if live API is slow or the wifi dies)
 - You've already refreshed state in the checklist, so **Slack + HubSpot already show
@@ -218,7 +231,8 @@ Three credibility points:
 ---
 
 ## After the demo
-Re-enable the autonomous timer if you paused it:
-```bash
-systemctl start revops-poll.timer
-```
+- Stop the Slack listener: **Ctrl+C** in its terminal.
+- Turn autonomy back off (keeps costs at zero between demos):
+  ```bash
+  systemctl disable --now revops-poll.timer revops-digest.timer
+  ```
