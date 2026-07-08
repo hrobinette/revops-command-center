@@ -70,6 +70,36 @@ Run these ~5 minutes before you're up:
 
 ---
 
+## Driving it live (operator mechanics)
+
+The system runs on the **server** (`heather-dev`), not your laptop. You present from your
+laptop, screen-sharing, and drive the server through an **SSH terminal** while showing results
+in two **browser tabs**. You're just flipping between a terminal and two tabs.
+
+**Open before you present:**
+1. **Terminal SSH'd into the server**, in the project dir — PowerShell `ssh heather-dev` then
+   `cd ~/revops-command-center` (or VS Code's integrated terminal on heather-dev). **Big font**
+   (Ctrl+`+`) so the room can read it.
+2. **Browser tab — Slack** → `#revops-command-center`
+3. **Browser tab — HubSpot** → Deals list
+4. **Share your whole screen** (not one window) so you can flip between them.
+
+**Where each beat happens:**
+| Beat | Window | You do |
+|---|---|---|
+| Scoreboard | Terminal | `npm run process -- --all` → talk over the table |
+| In the CRM | HubSpot tab | Open **Harbor Health** → Notes |
+| In Slack | Slack tab | Scroll the channel |
+| ⭐ Live moment | Terminal → Slack tab | Paste the 2 live commands, then **switch to Slack** and wait for the alert to land |
+| Autonomy | Terminal | `systemctl list-timers 'revops-*'` |
+
+**Operator tips:** connect the SSH session *before* you start (don't log in on stage); keep every
+command in `demo/COMMANDS.md` and **paste, don't type**; run the clean-state refresh ~5 min early;
+if wifi dies, your SSH drops — walk the pre-refreshed Slack + HubSpot tabs instead (the story's
+already there).
+
+---
+
 ## The run-through
 
 ### Beat 0 — The hook (30s) [CORE]
