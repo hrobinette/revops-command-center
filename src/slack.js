@@ -119,3 +119,28 @@ export async function postAlert(deal, flags) {
 
   return postMessage({ text: `🔴 ${deal.name} needs attention`, blocks });
 }
+
+/** Full scorecard for a single freshly-ingested deal — the reply to a dropped transcript. */
+export async function postDealCard(deal, trends, flags) {
+  const ind = healthIndicator(flags);
+  const scores = Object.entries(ELEMENT_LABELS)
+    .map(([el, label]) => `${label}: *${trends.latest[el] ?? '-'}*`)
+    .join('  ·  ');
+  const flagBlock = flags.length
+    ? flags
+        .map((f) => `${f.severity === 'red' ? '🔴' : '🟡'} *${f.flag_type}* — ${f.detail || ''}`)
+        .join('\n')
+    : '✅ No risk flags — healthy deal.';
+
+  const blocks = [
+    { type: 'header', text: { type: 'plain_text', text: `${ind} ${deal.name} — scored`, emoji: true } },
+    {
+      type: 'context',
+      elements: [{ type: 'mrkdwn', text: `Stage: *${deal.stage || 'unknown'}*  ·  synced to HubSpot` }],
+    },
+    { type: 'section', text: { type: 'mrkdwn', text: scores } },
+    { type: 'section', text: { type: 'mrkdwn', text: flagBlock } },
+  ];
+
+  return postMessage({ text: `${deal.name} scored — ${flags.length} flag(s)`, blocks });
+}

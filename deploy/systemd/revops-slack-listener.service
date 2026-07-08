@@ -1,0 +1,13 @@
+[Unit]
+Description=RevOps Command Center — Slack drag-and-drop transcript ingestion (Socket Mode)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+WorkingDirectory=/root/revops-command-center
+ExecStart=/usr/bin/node src/slack-listener.js
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

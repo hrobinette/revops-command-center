@@ -10,10 +10,12 @@
   "scripts": {
     "process": "node src/process.js",
     "digest": "node src/digest.js",
+    "listen": "node src/slack-listener.js",
     "test": "node tests/run.js"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.65.0",
+    "@slack/bolt": "^4.7.3",
     "@supabase/supabase-js": "^2.45.0",
     "dotenv": "^16.4.5"
   }

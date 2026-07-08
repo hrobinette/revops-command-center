@@ -1,0 +1,20 @@
+CALL TRANSCRIPT
+Deal: Northstar Capital
+Call: 1 of 1 — Proposal Review
+Date: 2026-07-15
+Attendees: Dana Whitfield (ShieldPoint, AE), Kevin Ross (Northstar, IT Manager)
+
+---
+
+Dana: Kevin, you've seen the proposal — where are you leaning?
+Kevin: I like it. Coverage looks strong and your team's responsive. I'm on board.
+Dana: Great. Who owns final sign-off and budget on your side?
+Kevin: That's our VP of Finance, but she's hands-off on tooling. I'll make the call and just loop her in after. No need to bring her in now.
+Dana: Understood. Any procurement or legal review I should plan around?
+Kevin: Honestly not sure — we haven't bought something like this in a while. I'd have to check.
+Dana: Any deadline driving this?
+Kevin: Not a hard one. We'd like it this quarter but it could slip.
+Dana: Anyone else you're evaluating?
+Kevin: Not seriously. You're the front-runner.
+Dana: Sounds good — you'll take it to the VP?
+Kevin: Yep, I'll circle back.

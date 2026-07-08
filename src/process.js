@@ -143,8 +143,12 @@ export async function runPipeline(opts = {}) {
     };
 
     const flags = computeFlags(deal, trends, ctx);
+    // computeFlags returns flag_type/severity/detail/call_id — stamp deal_id so the
+    // rows persist against the deal (otherwise they land with a null deal_id and are
+    // orphaned in Supabase, invisible to any query by deal).
+    const flagRows = flags.map((f) => ({ ...f, deal_id: dealId }));
     await clearFlagsForDeal(dealId);
-    await insertFlags(flags);
+    await insertFlags(flagRows);
 
     if (pushHubspot) {
       try {
