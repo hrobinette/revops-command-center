@@ -20,77 +20,82 @@ export default async function Page() {
   const champFlag = featured?.flags.find((f) => f.flag_type === 'CHAMPION_DECLINE');
 
   return (
-    <main className="wrap">
+    <>
       <AutoRefresh seconds={30} />
       <h2 className="sr-only">
         RevOps Command Center: {deals.length} deals — {crit} critical, {watch} watch, {healthy} healthy.
       </h2>
 
-      <div className="head">
-        <div>
-          <div className="title">📊 RevOps Command Center</div>
-          <div className="sub">Autonomous MEDDPICC deal-health monitoring · {deals.length} deals</div>
+      <div className="kpis">
+        <div className="kpi">
+          <div className="lab">Deals monitored</div>
+          <div className="val">{deals.length}</div>
+          <div className="hint">across the pipeline</div>
         </div>
-        <div className="crumb">ShieldPoint pipeline</div>
-      </div>
-
-      <div className="tiles">
-        <div className="tile">
-          <div className="n">{deals.length}</div>
-          <div className="l">Deals monitored</div>
+        <div className="kpi" style={{ '--accent': 'var(--crit)' }}>
+          <div className="lab">Critical</div>
+          <div className="val" style={{ color: 'var(--crit)' }}>{crit}</div>
+          <div className="hint">need attention now</div>
         </div>
-        <div className="tile">
-          <div className="n" style={{ color: 'var(--critical)' }}>{crit}</div>
-          <div className="l"><span className="dot" style={{ background: 'var(--critical)' }} />Critical</div>
+        <div className="kpi" style={{ '--accent': 'var(--warn)' }}>
+          <div className="lab">Watch</div>
+          <div className="val" style={{ color: 'var(--warn)' }}>{watch}</div>
+          <div className="hint">trending at risk</div>
         </div>
-        <div className="tile">
-          <div className="n" style={{ color: 'var(--warning)' }}>{watch}</div>
-          <div className="l"><span className="dot" style={{ background: 'var(--warning)' }} />Watch</div>
-        </div>
-        <div className="tile">
-          <div className="n" style={{ color: 'var(--good)' }}>{healthy}</div>
-          <div className="l"><span className="dot" style={{ background: 'var(--good)' }} />Healthy</div>
+        <div className="kpi" style={{ '--accent': 'var(--good)' }}>
+          <div className="lab">Healthy</div>
+          <div className="val" style={{ color: 'var(--good)' }}>{healthy}</div>
+          <div className="hint">on track</div>
         </div>
       </div>
 
-      <div className="body">
-        <div className="panel">
-          <h3>Pipeline</h3>
+      <div className="grid">
+        <div className="card">
+          <div className="card-h">
+            <h3>Pipeline</h3>
+            <span style={{ fontSize: '11px', color: 'var(--muted)' }}>{deals.length} deals</span>
+          </div>
           {sorted.map((d) => (
-            <Link className="deal" href={`/deals/${d.id}`} key={d.id}>
-              <span className="dot" style={{ background: HEALTH_COLOR[d.health] }} />
+            <Link className="row" href={`/deals/${d.id}`} key={d.id}>
+              <span className="stat" style={{ background: HEALTH_COLOR[d.health] }} />
               <div className="mid">
                 <div className="nm">{d.name}</div>
-                <div className="stg">{d.stage || '—'}</div>
+                <div className="sg">{d.stage || '—'}</div>
               </div>
-              <div className="pills"><FlagPills flags={d.flags} /></div>
+              <div className="fl"><FlagPills flags={d.flags} /></div>
+              <span className="chev">›</span>
             </Link>
           ))}
         </div>
 
-        <div className="panel">
-          <h3>{featured ? `Champion engagement · ${featured.name}` : 'Trend'}</h3>
-          {featured ? (
-            <>
-              <TrendChart series={featured.championSeries} color="var(--critical)" />
-              <div className="cap">
-                {champFlag ? (
-                  <>
-                    🔴 <b>CHAMPION_DECLINE</b> — flagged automatically.{' '}
-                  </>
-                ) : null}
-                No single call looks alarming; <b>the trajectory does</b>. This is the trend a human reviewer misses.
-              </div>
-            </>
-          ) : (
-            <div className="cap">A multi-call deal will show its trend here.</div>
-          )}
+        <div className="card">
+          <div className="card-h">
+            <h3>{featured ? `Champion · ${featured.name}` : 'Trend'}</h3>
+            {featured && featured.health === 'critical' ? <span className="badge crit">Critical</span> : null}
+          </div>
+          <div className="card-b">
+            {featured ? (
+              <>
+                <TrendChart series={featured.championSeries} color="var(--crit)" />
+                <div className="cap">
+                  {champFlag ? (
+                    <>
+                      <b>CHAMPION_DECLINE</b> flagged automatically.{' '}
+                    </>
+                  ) : null}
+                  No single call looks alarming — <b>the trajectory does</b>. The trend a human reviewer misses.
+                </div>
+              </>
+            ) : (
+              <div className="cap">A multi-call deal will show its trend here.</div>
+            )}
+          </div>
         </div>
       </div>
 
       <div className="foot">
-        <span className="live" /> Live from Supabase · scored by Claude · updates on every new call
+        <span className="d" /> Live from Supabase · scored by Claude · auto-refreshes every 30s
       </div>
-    </main>
+    </>
   );
 }

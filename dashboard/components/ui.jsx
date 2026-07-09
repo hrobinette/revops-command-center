@@ -1,21 +1,21 @@
 import { ELEMENTS, LABELS } from '../lib/data';
 
-export const HEALTH_COLOR = { critical: 'var(--critical)', warning: 'var(--warning)', good: 'var(--good)' };
+export const HEALTH_COLOR = { critical: 'var(--crit)', warning: 'var(--warn)', good: 'var(--good)' };
 
 const SHORT = {
-  NO_EB_LATE_STAGE: 'NO EB',
-  NO_PAPER_PROCESS_LATE: 'PAPER',
-  CHAMPION_DECLINE: 'CHAMPION ↓',
-  UNQUALIFIED: 'UNQUALIFIED',
-  COMPETITIVE_EXPOSURE: 'COMPETITIVE',
+  NO_EB_LATE_STAGE: 'No EB',
+  NO_PAPER_PROCESS_LATE: 'Paper',
+  CHAMPION_DECLINE: 'Champion ↓',
+  UNQUALIFIED: 'Unqualified',
+  COMPETITIVE_EXPOSURE: 'Competitive',
 };
 
 export function FlagPills({ flags }) {
-  if (!flags.length) return <span className="pill ok">✓ clean</span>;
+  if (!flags.length) return <span className="pill g">Clean</span>;
   return (
     <>
       {flags.map((f, i) => (
-        <span key={i} className={`pill ${f.severity === 'red' ? 'red' : 'yel'}`}>
+        <span key={i} className={`pill ${f.severity === 'red' ? 'r' : 'y'}`}>
           {SHORT[f.flag_type] || f.flag_type}
         </span>
       ))}
@@ -24,12 +24,12 @@ export function FlagPills({ flags }) {
 }
 
 /** Single-series line chart of a score (0–10) across calls. */
-export function TrendChart({ series, color = 'var(--critical)', height = 210 }) {
-  const W = 400;
+export function TrendChart({ series, color = 'var(--crit)', height = 200 }) {
+  const W = 380;
   const H = height;
-  const padL = 44;
+  const padL = 40;
   const padR = 26;
-  const padT = 20;
+  const padT = 22;
   const padB = 26;
   const plotW = W - padL - padR;
   const plotH = H - padT - padB;
@@ -47,18 +47,18 @@ export function TrendChart({ series, color = 'var(--critical)', height = 210 }) 
 
   return (
     <svg viewBox={`0 0 ${W} ${H}`} width="100%" role="img" aria-label="Score across calls">
-      <line x1={padL} y1={padT} x2={W - padR} y2={padT} stroke="var(--grid)" strokeWidth="1" />
-      <line x1={padL} y1={padT + plotH / 2} x2={W - padR} y2={padT + plotH / 2} stroke="var(--grid)" strokeWidth="1" />
+      <line x1={padL} y1={padT} x2={W - padR} y2={padT} stroke="var(--line)" strokeWidth="1" />
+      <line x1={padL} y1={padT + plotH / 2} x2={W - padR} y2={padT + plotH / 2} stroke="var(--line)" strokeWidth="1" />
       <line x1={padL} y1={padT + plotH} x2={W - padR} y2={padT + plotH} stroke="var(--baseline)" strokeWidth="1" />
       <text x={padL - 8} y={padT + 4} textAnchor="end" fontSize="10" fill="var(--muted)">10</text>
       <text x={padL - 8} y={padT + plotH / 2 + 4} textAnchor="end" fontSize="10" fill="var(--muted)">5</text>
       <text x={padL - 8} y={padT + plotH + 4} textAnchor="end" fontSize="10" fill="var(--muted)">0</text>
-      {area && <path d={area} fill={color} fillOpacity="0.08" />}
+      {area && <path d={area} fill={color} fillOpacity="0.07" />}
       <polyline points={line} fill="none" stroke={color} strokeWidth="2.5" strokeLinejoin="round" strokeLinecap="round" />
       {coords.map((c, i) =>
         c.cy == null ? null : (
           <g key={i}>
-            <circle cx={c.cx} cy={c.cy} r="4.5" fill="var(--surface)" stroke={color} strokeWidth="2.5">
+            <circle cx={c.cx} cy={c.cy} r="4.5" fill="var(--card)" stroke={color} strokeWidth="2.5">
               <title>{`Call ${c.call}: ${c.score}/10`}</title>
             </circle>
             <text x={c.cx} y={c.cy - 11} textAnchor="middle" fontSize="12" fontWeight="700" fill="var(--ink)">
@@ -82,7 +82,7 @@ export function MiniTrend({ label, series }) {
   const first = pts[0]?.score;
   const last = pts[pts.length - 1]?.score;
   const dir = last == null || first == null ? 'flat' : last < first ? 'down' : last > first ? 'up' : 'flat';
-  const color = dir === 'down' ? 'var(--critical)' : dir === 'up' ? 'var(--good)' : 'var(--muted)';
+  const color = dir === 'down' ? 'var(--crit)' : dir === 'up' ? 'var(--good)' : 'var(--muted)';
   const W = 130;
   const H = 46;
   const padX = 6;
@@ -107,9 +107,7 @@ export function MiniTrend({ label, series }) {
       </div>
       <svg viewBox={`0 0 ${W} ${H}`} width="100%" aria-hidden="true">
         <polyline points={line} fill="none" stroke={color} strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" />
-        {series.map((p, i) =>
-          p.score == null ? null : <circle key={i} cx={x(i)} cy={y(p.score)} r="2.5" fill={color} />
-        )}
+        {series.map((p, i) => (p.score == null ? null : <circle key={i} cx={x(i)} cy={y(p.score)} r="2.5" fill={color} />))}
       </svg>
     </div>
   );
@@ -138,7 +136,7 @@ export function MeddpiccBars({ scores }) {
           <div className="bar-row" key={el}>
             <div className="bl">{LABELS[el]}</div>
             <div className="bar-track">
-              <div className="bar-fill" style={{ width: `${pct}%`, background: 'var(--series-1)' }} />
+              <div className="bar-fill" style={{ width: `${pct}%` }} />
             </div>
             <div className="bv">{v == null ? '–' : v}</div>
           </div>
