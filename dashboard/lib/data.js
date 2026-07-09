@@ -41,7 +41,7 @@ async function loadAll() {
   const [deals, calls, scores, flags] = await Promise.all([
     sb.from('deals').select('*').order('name'),
     sb.from('calls').select('id,deal_id,call_number'),
-    sb.from('scores').select('call_id,deal_id,element,score'),
+    sb.from('scores').select('call_id,deal_id,element,score,evidence'),
     sb.from('flags').select('deal_id,flag_type,severity,detail'),
   ]);
   for (const r of [deals, calls, scores, flags]) if (r.error) throw r.error;
@@ -81,13 +81,16 @@ export async function getDeal(id) {
   const { deals, calls, scores, flags } = await loadAll();
   const deal = deals.find((d) => d.id === id);
   if (!deal) return null;
-  const dcalls = calls
+  const dcallRows = calls
     .filter((c) => c.deal_id === id)
-    .sort((a, b) => (a.call_number || 0) - (b.call_number || 0))
-    .map((c) => ({
-      call: c.call_number,
-      scores: Object.fromEntries(scores.filter((s) => s.call_id === c.id).map((s) => [s.element, s.score])),
-    }));
+    .sort((a, b) => (a.call_number || 0) - (b.call_number || 0));
+  const dcalls = dcallRows.map((c) => ({
+    call: c.call_number,
+    scores: Object.fromEntries(scores.filter((s) => s.call_id === c.id).map((s) => [s.element, s.score])),
+  }));
+  const latestCall = dcallRows[dcallRows.length - 1];
+  const latestEvidence = {};
+  if (latestCall) scores.filter((s) => s.call_id === latestCall.id).forEach((s) => (latestEvidence[s.element] = s.evidence));
   const dflags = flags.filter((f) => f.deal_id === id);
-  return { deal, calls: dcalls, flags: dflags, health: health(dflags) };
+  return { deal, calls: dcalls, flags: dflags, health: health(dflags), latestEvidence };
 }

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { getOverview } from '../lib/data';
 import { TrendChart, FlagPills, HEALTH_COLOR } from '../components/ui';
+import { AutoRefresh } from '../components/AutoRefresh';
 
 export const dynamic = 'force-dynamic';
 
@@ -20,6 +21,7 @@ export default async function Page() {
 
   return (
     <main className="wrap">
+      <AutoRefresh seconds={30} />
       <h2 className="sr-only">
         RevOps Command Center: {deals.length} deals — {crit} critical, {watch} watch, {healthy} healthy.
       </h2>

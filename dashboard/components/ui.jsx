@@ -76,6 +76,57 @@ export function TrendChart({ series, color = 'var(--critical)', height = 210 }) 
   );
 }
 
+/** Tiny sparkline of one element's score across calls, colored by direction. */
+export function MiniTrend({ label, series }) {
+  const pts = series.filter((p) => p.score != null);
+  const first = pts[0]?.score;
+  const last = pts[pts.length - 1]?.score;
+  const dir = last == null || first == null ? 'flat' : last < first ? 'down' : last > first ? 'up' : 'flat';
+  const color = dir === 'down' ? 'var(--critical)' : dir === 'up' ? 'var(--good)' : 'var(--muted)';
+  const W = 130;
+  const H = 46;
+  const padX = 6;
+  const padT = 8;
+  const padB = 8;
+  const n = series.length;
+  const x = (i) => padX + (n <= 1 ? (W - 2 * padX) / 2 : (i / (n - 1)) * (W - 2 * padX));
+  const y = (s) => padT + (1 - s / 10) * (H - padT - padB);
+  const line = series
+    .map((p, i) => (p.score == null ? null : `${x(i)},${y(p.score)}`))
+    .filter(Boolean)
+    .join(' ');
+  const arrow = dir === 'down' ? ' ↓' : dir === 'up' ? ' ↑' : '';
+  return (
+    <div className="mini">
+      <div className="mini-head">
+        <span className="mini-l">{label}</span>
+        <span className="mini-v" style={{ color }}>
+          {last == null ? '–' : last}
+          {arrow}
+        </span>
+      </div>
+      <svg viewBox={`0 0 ${W} ${H}`} width="100%" aria-hidden="true">
+        <polyline points={line} fill="none" stroke={color} strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" />
+        {series.map((p, i) =>
+          p.score == null ? null : <circle key={i} cx={x(i)} cy={y(p.score)} r="2.5" fill={color} />
+        )}
+      </svg>
+    </div>
+  );
+}
+
+/** Grid of per-element sparklines across a deal's calls. */
+export function ElementTrends({ calls }) {
+  const series = (el) => calls.map((c) => ({ call: c.call, score: c.scores[el] ?? null }));
+  return (
+    <div className="minis">
+      {ELEMENTS.map((el) => (
+        <MiniTrend key={el} label={LABELS[el]} series={series(el)} />
+      ))}
+    </div>
+  );
+}
+
 /** Horizontal MEDDPICC bars (0–10) for one call's scores. */
 export function MeddpiccBars({ scores }) {
   return (
