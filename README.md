@@ -5,9 +5,12 @@ It scores sales-call transcripts against **MEDDPICC**, tracks how each deal tren
 across calls, and raises risk flags — no human in the loop. Full spec in
 [`CLAUDE.md`](./CLAUDE.md).
 
-This is **Week 7 scope**: the core loop only.
-`transcript → MEDDPICC score → Supabase → trends → risk flags → summary table`.
-HubSpot sync and Slack delivery are Week 8 and are intentionally **not** built yet.
+The full loop runs itself on a schedule:
+`transcript → MEDDPICC score → Supabase → trends → risk flags → HubSpot notes → Slack alerts/digest`,
+with a live web dashboard on top. Drop a transcript into Slack (or the `transcripts/` folder)
+and it flows end to end — no human in the loop.
+
+**📊 Live dashboard:** https://revops-command-center-bay.vercel.app/
 
 ## Pipeline
 
