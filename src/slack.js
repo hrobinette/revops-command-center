@@ -156,6 +156,24 @@ export async function postResolution(deal, resolved) {
   return postMessage({ text: `${deal.name} closed ${resolved.length} gap(s)`, blocks });
 }
 
+/**
+ * Post a drafted follow-up email the rep can copy and send.
+ * @param deal   { name }
+ * @param draft  { target_gap, subject, body, rationale }
+ */
+export async function postFollowupDraft(deal, draft) {
+  const blocks = [
+    {
+      type: 'section',
+      text: { type: 'mrkdwn', text: `📧 *Suggested follow-up for ${deal.name}* — closes the *${draft.target_gap}* gap` },
+    },
+    { type: 'section', text: { type: 'mrkdwn', text: `*Subject:* ${draft.subject}` } },
+    { type: 'section', text: { type: 'mrkdwn', text: draft.body } },
+    draft.rationale ? { type: 'context', elements: [{ type: 'mrkdwn', text: `Why: ${draft.rationale}` }] } : null,
+  ].filter(Boolean);
+  return postMessage({ text: `Suggested follow-up for ${deal.name}`, blocks });
+}
+
 /** Full scorecard for a single freshly-ingested deal — the reply to a dropped transcript. */
 export async function postDealCard(deal, trends, flags, resolved = []) {
   const ind = healthIndicator(flags);

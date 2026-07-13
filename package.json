@@ -11,6 +11,9 @@
     "process": "node src/process.js",
     "digest": "node src/digest.js",
     "listen": "node src/slack-listener.js",
+    "followup": "node src/followup.js",
+    "forecast": "node src/forecast.js",
+    "ask": "node src/ask.js",
     "test": "node tests/run.js"
   },
   "dependencies": {
