@@ -218,6 +218,25 @@ Three credibility points:
   ```
   *(Simplest: rotate through the three staged transcripts — cobalt / meridian / northstar — one per run.)*
 
+## Revenue co-pilot capabilities (new — beyond scoring)
+
+The system now closes the loop, not just observes it. Four commands, all reading the
+scores already in Supabase:
+
+- **Gap-closed loop (the wow beat #2):** when a previously-flagged gap recovers on a
+  later call, the system announces it. Live moment: Harbor is on the board at-risk
+  (missing economic buyer). Drop `demo/incoming/02d_harbor_health_eb_secured.txt` —
+  the CFO finally engaged on that call — and the scorecard reply shows
+  `✅ Closed since last call: economic-buyer gap (economic_buyer 3 → 10)`. It proves
+  the loop, not just the alert.
+- **Follow-up drafter:** `npm run followup -- --deal "Harbor Health" [--slack]` drafts a
+  sendable email that closes the deal's biggest gap, grounded in the call evidence.
+- **Risk-adjusted forecast:** `npm run forecast [--slack]` — committed pipeline vs. what's
+  actually de-risked. The one-liner for leadership: "$525K committed, $235K risk-adjusted —
+  half your pipeline is hope." Amounts seed from `data/deal-amounts.json`.
+- **Ask-the-pipeline:** `npm run ask "which proposal-stage deals have no economic buyer?"` —
+  natural-language questions answered from the live scores, with citations.
+
 ## Fallback plan (if live API is slow or the wifi dies)
 - You've already refreshed state in the checklist, so **Slack + HubSpot already show
   the full story** — walk those instead of running live.

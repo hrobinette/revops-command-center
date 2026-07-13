@@ -1,0 +1,44 @@
+CALL TRANSCRIPT
+Deal: Harbor Health Systems
+Call: 3 of 3 — Proposal Review with Economic Buyer
+Date: 2026-07-02
+Duration: 31 min
+Attendees: Marcus Cole (ShieldPoint, AE), Leah Brandt (Harbor Health, Security Manager), Rick Alvarez (Harbor Health, CFO)
+
+---
+
+Marcus: Rick, thanks for joining — I know Leah's been carrying this internally, so it's great to finally have you on. Leah, do you want to frame where we are?
+
+Leah: Sure. Rick, we've been evaluating ShieldPoint for cloud posture management. I brought you in because we're at the point where this needs budget sign-off, and you had questions about the ROI.
+
+Rick: I did. Marcus, my job is to make sure we're not buying another tool that sits on a shelf. Walk me through the money.
+
+Marcus: Fair. Today Leah's team spends roughly fifteen hours a week on manual config review, and you had two audit findings last quarter that traced back to posture gaps. At your blended rate that's about $180K a year in labor, before you count the risk exposure. ShieldPoint runs $85K annually. So the payback is under six months on labor alone.
+
+Rick: That math I can follow. And the $85K — that's the number, no surprises later?
+
+Marcus: That's the all-in annual number for your fourteen accounts. I'll put it in writing.
+
+Rick: Good. I control this budget line, and I'm prepared to approve it this quarter if the security review checks out. I don't need to loop in anyone above me for a deal this size.
+
+Leah: That's the piece I wanted Rick to say directly — he owns the decision and the budget.
+
+Marcus: That's exactly what I needed to hear. On the security review — what does that process look like on your side?
+
+Rick: Leah runs point with our InfoSec team. There's a vendor security assessment, a data processing addendum our legal team reviews, and then I sign. Leah, how long does that usually take?
+
+Leah: If we start this week, InfoSec needs about ten days, legal maybe another week on the DPA. I've already given them a heads up, so we're not starting cold. I can send you the security questionnaire tomorrow, Marcus.
+
+Marcus: Perfect — I'll turn the questionnaire around in two days and loop in our security team for the DPA. So we're looking at roughly three weeks to signature if InfoSec and legal stay on track?
+
+Rick: That's realistic. I'll tell legal to prioritize it. Assuming no red flags, I'll have signature authority ready end of month.
+
+Marcus: Then let's lock the timeline. Leah sends the questionnaire tomorrow, I return it in two days, legal starts the DPA next week, and we target signature by month end. Rick, anything that would change your mind between now and then?
+
+Rick: Only if the security review turns up something serious. Otherwise the business case is clear and I'm ready to move.
+
+Leah: This is the most aligned we've been. I feel good about it.
+
+Marcus: Same. I'll send the recap and the questionnaire response timeline within the hour.
+
+--- END OF CALL ---
