@@ -1,6 +1,19 @@
 // Risk engine (Week 7: rules only; LLM judgment + alerting come in Week 8).
 // Each rule returns a flag object or null.
 
+// Human-readable flag names for anything user-facing (Slack, CRM notes).
+// The flag_type codes stay as-is in the data model and CLI; this is display only.
+export const FLAG_LABELS = {
+  NO_EB_LATE_STAGE: 'No economic buyer (late stage)',
+  CHAMPION_DECLINE: 'Champion declining',
+  NO_PAPER_PROCESS_LATE: 'No paper process (late stage)',
+  UNQUALIFIED: 'Unqualified',
+  COMPETITIVE_EXPOSURE: 'Competitive exposure',
+};
+
+/** Friendly name for a flag; unmapped codes fall back to underscores → spaces. */
+export const flagLabel = (t) => FLAG_LABELS[t] || String(t || '').replace(/_/g, ' ');
+
 const LATE_STAGES = new Set(['proposal', 'negotiation']);
 
 function isLateStage(stage) {

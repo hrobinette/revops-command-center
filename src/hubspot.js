@@ -1,6 +1,7 @@
 // Week 8 — CRM writeback via a HubSpot Service Key (Bearer token).
 // Isolated to this project's .env; never shared with the Nox agent.
 import 'dotenv/config';
+import { flagLabel } from './flags.js';
 
 const TOKEN = process.env.HUBSPOT_TOKEN;
 const BASE = 'https://api.hubapi.com';
@@ -158,7 +159,7 @@ export function buildNoteBody({ deal, trends, flags, summary, resolved }) {
       flags
         .map(
           (f) =>
-            `<li>${f.severity === 'red' ? '🔴' : '🟡'} <b>${f.flag_type}</b> — ${f.detail || ''}</li>`
+            `<li>${f.severity === 'red' ? '🔴' : '🟡'} <b>${flagLabel(f.flag_type)}</b> — ${f.detail || ''}</li>`
         )
         .join('') +
       '</ul>'

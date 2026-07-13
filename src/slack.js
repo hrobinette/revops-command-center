@@ -2,6 +2,7 @@
 // Posts a deal-health digest and fires alerts for red-flagged deals.
 // Uses its own bot token (SLACK_BOT_TOKEN) — a distinct identity from Nox.
 import 'dotenv/config';
+import { flagLabel } from './flags.js';
 
 const TOKEN = process.env.SLACK_BOT_TOKEN;
 const CHANNEL = process.env.SLACK_CHANNEL;
@@ -72,7 +73,7 @@ export async function postDigest(results) {
   const lines = sorted.map(({ deal, flags }) => {
     const ind = healthIndicator(flags);
     const flagStr = flags.length
-      ? flags.map((f) => f.flag_type).join(', ')
+      ? flags.map((f) => flagLabel(f.flag_type)).join(', ')
       : 'clean';
     return `${ind}  *${deal.name}*  ·  _${deal.stage || 'unknown'}_  ·  ${flagStr}`;
   });
@@ -125,7 +126,7 @@ export async function postAlert(deal, flags) {
       type: 'section',
       text: {
         type: 'mrkdwn',
-        text: reds.map((f) => `• *${f.flag_type}* — ${f.detail || ''}`).join('\n'),
+        text: reds.map((f) => `• *${flagLabel(f.flag_type)}* — ${f.detail || ''}`).join('\n'),
       },
     },
   ];
@@ -216,7 +217,7 @@ export async function postDealCard(deal, trends, flags, resolved = []) {
     .join('  ·  ');
   const flagBlock = flags.length
     ? flags
-        .map((f) => `${f.severity === 'red' ? '🔴' : '🟡'} *${f.flag_type}* — ${f.detail || ''}`)
+        .map((f) => `${f.severity === 'red' ? '🔴' : '🟡'} *${flagLabel(f.flag_type)}* — ${f.detail || ''}`)
         .join('\n')
     : '✅ No risk flags — healthy deal.';
 
