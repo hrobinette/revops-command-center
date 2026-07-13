@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import { getDeal } from '../../../lib/data';
 import { MeddpiccBars, TrendChart, ElementTrends, HEALTH_COLOR } from '../../../components/ui';
 import { AutoRefresh } from '../../../components/AutoRefresh';
-import { FLAG_ELEMENT, RECOMMENDATION } from '../../../lib/recommendations';
+import { FLAG_ELEMENT, RECOMMENDATION, flagLabel } from '../../../lib/recommendations';
 
 export const dynamic = 'force-dynamic';
 
@@ -78,7 +78,7 @@ export default async function DealPage({ params }) {
               return (
                 <div className="flagcard" key={i}>
                   <div className="ft">
-                    {f.severity === 'red' ? '🔴' : '🟡'} {f.flag_type}
+                    {f.severity === 'red' ? '🔴' : '🟡'} {flagLabel(f.flag_type)}
                   </div>
                   <div className="fd">{f.detail}</div>
                   {evidence ? <div className="evidence">“{evidence}”</div> : null}

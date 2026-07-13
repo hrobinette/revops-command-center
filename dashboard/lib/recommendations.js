@@ -1,3 +1,15 @@
+// Human-readable flag names for the UI (no raw UPPER_SNAKE_CASE on screen).
+export const FLAG_LABEL = {
+  NO_EB_LATE_STAGE: 'No economic buyer (late stage)',
+  CHAMPION_DECLINE: 'Champion declining',
+  NO_PAPER_PROCESS_LATE: 'No paper process (late stage)',
+  UNQUALIFIED: 'Unqualified',
+  COMPETITIVE_EXPOSURE: 'Competitive exposure',
+};
+
+// Fallback: any unmapped flag renders with underscores turned into spaces.
+export const flagLabel = (t) => FLAG_LABEL[t] || String(t || '').replace(/_/g, ' ');
+
 // The element whose evidence best explains each flag (for surfacing the transcript quote).
 export const FLAG_ELEMENT = {
   NO_EB_LATE_STAGE: 'economic_buyer',
