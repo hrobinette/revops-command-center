@@ -174,6 +174,40 @@ export async function postFollowupDraft(deal, draft) {
   return postMessage({ text: `Suggested follow-up for ${deal.name}`, blocks });
 }
 
+/**
+ * Post the risk-adjusted forecast roll-up.
+ * @param fc  computeForecast() output { rows, committed, riskAdjusted, unpriced }
+ */
+export async function postForecast({ rows, committed, riskAdjusted, unpriced }) {
+  const usd = (n) => '$' + Math.round(n).toLocaleString('en-US');
+  const lines = rows
+    .filter((r) => r.amount != null)
+    .map((r) => {
+      const ind = r.hasRed ? '🔴' : r.flags.length ? '🟡' : '✅';
+      return `${ind} *${r.name}*  ·  ${usd(r.amount)} → *${usd(r.risk)}*  ·  ${Math.round(r.completeness * 100)}% ${r.trajectory.arrow}`;
+    });
+  const erosion = committed - riskAdjusted;
+  const erosionPct = committed ? Math.round((erosion / committed) * 100) : 0;
+  const blocks = [
+    { type: 'header', text: { type: 'plain_text', text: '📈 Risk-adjusted pipeline forecast', emoji: true } },
+    {
+      type: 'context',
+      elements: [
+        {
+          type: 'mrkdwn',
+          text: `Committed *${usd(committed)}*  ·  risk-adjusted *${usd(riskAdjusted)}*  ·  ${erosionPct}% risk discount`,
+        },
+      ],
+    },
+    { type: 'divider' },
+    { type: 'section', text: { type: 'mrkdwn', text: lines.join('\n') } },
+  ];
+  if (unpriced && unpriced.length) {
+    blocks.push({ type: 'context', elements: [{ type: 'mrkdwn', text: `No amount on file: ${unpriced.join(', ')}` }] });
+  }
+  return postMessage({ text: `Forecast: ${usd(riskAdjusted)} risk-adjusted of ${usd(committed)} committed`, blocks });
+}
+
 /** Full scorecard for a single freshly-ingested deal — the reply to a dropped transcript. */
 export async function postDealCard(deal, trends, flags, resolved = []) {
   const ind = healthIndicator(flags);

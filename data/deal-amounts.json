@@ -1,0 +1,10 @@
+{
+  "_comment": "Annual contract value (USD) per deal, keyed by deal name. Local seed for the risk-adjusted forecast. In production this would be read from the CRM's deal amount field; kept here so the forecast has dollars to weight without a schema/DDL change.",
+  "Lakeshore Fintech": 120000,
+  "Harbor Health Systems": 85000,
+  "Trellis Logistics": 70000,
+  "Bluepine Retail": 40000,
+  "NovaWorks": 55000,
+  "Corvid Manufacturing": 95000,
+  "Cedarhill Robotics": 60000
+}
