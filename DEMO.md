@@ -55,6 +55,9 @@ and instructors reward *how* you built it, not just that it demos. Technical-dep
 
 Run these ~5 minutes before you're up:
 
+- [ ] **Preflight — check every live service is reachable:** `npm run preflight`. Green on all four
+      (Anthropic · Supabase · Slack · HubSpot) = demo-ready; a ❌ means fix it before you go up, not
+      on stage. Exits non-zero if anything's down.
 - [ ] **Screen layout:** three things visible/tabbed — the **Slack `#revops-command-center`** channel, **HubSpot deals** list, and a **terminal** in `~/revops-command-center`.
 - [ ] **Turn autonomy ON for the demo** (so the "it runs itself" beat is true and `list-timers`
       shows it): `systemctl enable --now revops-poll.timer revops-digest.timer`. An idle poll firing
