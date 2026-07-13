@@ -18,7 +18,11 @@ export default async function Page() {
   const riskAdjusted = deals.reduce((s, d) => s + (d.riskAdjusted || 0), 0);
   const erosionPct = committed ? Math.round(((committed - riskAdjusted) / committed) * 100) : 0;
   const sorted = [...deals].sort((a, b) => ORDER[a.health] - ORDER[b.health] || a.name.localeCompare(b.name));
+  // Feature the deal that actually tells the champion-decline story (the whole
+  // point of this panel); fall back to the busiest at-risk deal, then any
+  // multi-call deal.
   const featured =
+    deals.filter((d) => d.flags.some((f) => f.flag_type === 'CHAMPION_DECLINE')).sort((a, b) => b.callCount - a.callCount)[0] ||
     deals.filter((d) => d.callCount > 1 && d.health === 'critical').sort((a, b) => b.callCount - a.callCount)[0] ||
     deals.filter((d) => d.callCount > 1).sort((a, b) => b.callCount - a.callCount)[0] ||
     null;
@@ -106,24 +110,26 @@ export default async function Page() {
 
         <div className="card">
           <div className="card-h">
-            <h3>{featured ? `Champion · ${featured.name}` : 'Trend'}</h3>
-            {featured && featured.health === 'critical' ? <span className="badge crit">Critical</span> : null}
+            <h3>{featured ? `Champion trend · ${featured.name}` : 'Champion trend'}</h3>
+            {champFlag ? <span className="badge crit">Declining</span> : null}
           </div>
           <div className="card-b">
             {featured ? (
               <>
-                <TrendChart series={featured.championSeries} color="var(--crit)" />
+                <TrendChart series={featured.championSeries} color={champFlag ? 'var(--crit)' : 'var(--brand)'} />
                 <div className="cap">
                   {champFlag ? (
                     <>
-                      <b>CHAMPION_DECLINE</b> flagged automatically.{' '}
+                      <b>Champion declining</b> — flagged automatically. No single call looks alarming;{' '}
+                      <b>the trajectory does</b>. The trend a human reviewer misses.
                     </>
-                  ) : null}
-                  No single call looks alarming — <b>the trajectory does</b>. The trend a human reviewer misses.
+                  ) : (
+                    <>Champion engagement across this deal’s calls — the trajectory the system tracks automatically.</>
+                  )}
                 </div>
               </>
             ) : (
-              <div className="cap">A multi-call deal will show its trend here.</div>
+              <div className="cap">A multi-call deal will show its champion trend here.</div>
             )}
           </div>
         </div>
