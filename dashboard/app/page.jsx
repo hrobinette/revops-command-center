@@ -106,33 +106,40 @@ export default async function Page() {
               <span className="chev">›</span>
             </Link>
           ))}
+          <div className="row-hint">Click any deal for its full MEDDPICC scorecard, evidence, and next steps →</div>
         </div>
 
-        <div className="card">
-          <div className="card-h">
-            <h3>{featured ? `Champion trend · ${featured.name}` : 'Champion trend'}</h3>
-            {champFlag ? <span className="badge crit">Declining</span> : null}
-          </div>
-          <div className="card-b">
-            {featured ? (
-              <>
-                <TrendChart series={featured.championSeries} color={champFlag ? 'var(--crit)' : 'var(--brand)'} />
-                <div className="cap">
-                  {champFlag ? (
-                    <>
-                      <b>Champion declining</b> — flagged automatically. No single call looks alarming;{' '}
-                      <b>the trajectory does</b>. The trend a human reviewer misses.
-                    </>
-                  ) : (
-                    <>Champion engagement across this deal’s calls — the trajectory the system tracks automatically.</>
-                  )}
-                </div>
-              </>
-            ) : (
+        {featured ? (
+          <Link className="card card-link" href={`/deals/${featured.id}`}>
+            <div className="card-h">
+              <h3>Champion trend · {featured.name}</h3>
+              {champFlag ? <span className="badge crit">Declining</span> : null}
+            </div>
+            <div className="card-b">
+              <TrendChart series={featured.championSeries} color={champFlag ? 'var(--crit)' : 'var(--brand)'} />
+              <div className="cap">
+                {champFlag ? (
+                  <>
+                    <b>Champion declining</b> — flagged automatically. No single call looks alarming;{' '}
+                    <b>the trajectory does</b>. The trend a human reviewer misses.
+                  </>
+                ) : (
+                  <>Champion engagement across this deal’s calls — the trajectory the system tracks automatically.</>
+                )}{' '}
+                <span className="cap-link">Open {featured.name} →</span>
+              </div>
+            </div>
+          </Link>
+        ) : (
+          <div className="card">
+            <div className="card-h">
+              <h3>Champion trend</h3>
+            </div>
+            <div className="card-b">
               <div className="cap">A multi-call deal will show its champion trend here.</div>
-            )}
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       <div className="foot">
