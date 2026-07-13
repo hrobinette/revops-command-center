@@ -13,7 +13,7 @@ import path from 'node:path';
 import { listDeals, getDealCallsWithScores } from './db.js';
 import { computeTrends } from './trends.js';
 import { computeFlags } from './flags.js';
-import { ELEMENTS } from './prompts/meddpicc.js';
+import { completeness, trajectory, riskAdjusted as riskAdjustedAmount } from './forecast-math.js';
 
 const AMOUNTS_FILE = path.resolve(process.cwd(), 'data', 'deal-amounts.json');
 
@@ -29,30 +29,6 @@ async function loadAmounts() {
   } catch {
     return {};
   }
-}
-
-/** Mean of the latest 8 element scores, 0..1. Null-safe. */
-function completeness(trends) {
-  const vals = ELEMENTS.map((e) => trends.latest[e]).filter((v) => v != null);
-  if (!vals.length) return 0;
-  return vals.reduce((a, b) => a + b, 0) / (vals.length * 10);
-}
-
-/** Overall momentum from the last call-over-call delta of each element. */
-function trajectory(trends) {
-  let sum = 0;
-  let seen = 0;
-  for (const e of ELEMENTS) {
-    const d = trends.deltas[e];
-    if (d && d.length) {
-      sum += d[d.length - 1];
-      seen++;
-    }
-  }
-  if (!seen) return { dir: 'new', arrow: '·', mult: 1 };
-  if (sum > 0) return { dir: 'improving', arrow: '↑', mult: 1 };
-  if (sum < 0) return { dir: 'declining', arrow: '↓', mult: 0.85 }; // extra discount for a stalling deal
-  return { dir: 'flat', arrow: '→', mult: 1 };
 }
 
 /**
@@ -82,7 +58,7 @@ export async function computeForecast() {
     const traj = trajectory(trends);
     const hasRed = flags.some((f) => f.severity === 'red');
     // Risk-adjusted value: amount weighted by completeness and trajectory.
-    const risk = amount == null ? null : Math.round(amount * comp * traj.mult);
+    const risk = riskAdjustedAmount(amount, comp, traj.mult);
 
     if (amount == null) unpriced.push(deal.name);
     else {

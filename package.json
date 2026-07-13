@@ -15,7 +15,8 @@
     "followup": "node src/followup.js",
     "forecast": "node src/forecast.js",
     "ask": "node src/ask.js",
-    "test": "node tests/run.js"
+    "test": "node tests/run.js",
+    "test:unit": "node tests/unit.js"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.65.0",
