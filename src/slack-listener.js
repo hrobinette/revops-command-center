@@ -94,8 +94,8 @@ async function handleTranscript({ savedName, channel, client }) {
     }
     return;
   }
-  const { deal, trends, flags, summary } = deals[0];
-  await postDealCard(deal, trends, flags);
+  const { deal, trends, flags, summary, resolved } = deals[0];
+  await postDealCard(deal, trends, flags, resolved);
 
   // Human-in-the-loop CRM step: match, then ask before writing.
   if (!hubspotEnabled()) {
@@ -117,7 +117,7 @@ async function handleTranscript({ savedName, channel, client }) {
 
   // Stash everything the button click needs; keep the note body server-side.
   const token = randomUUID().slice(0, 8);
-  const noteBody = buildNoteBody({ deal, trends, flags, summary });
+  const noteBody = buildNoteBody({ deal, trends, flags, summary, resolved });
   pending.set(token, { dealName: deal.name, dealId: deal.id, noteBody, candidates });
 
   if (channel) {

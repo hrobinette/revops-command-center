@@ -133,8 +133,31 @@ export async function postAlert(deal, flags) {
   return postMessage({ text: `🔴 ${deal.name} needs attention`, blocks });
 }
 
+/**
+ * Positive alert: risk flags that closed since the previous call.
+ * @param deal      { name, stage }
+ * @param resolved  computeResolvedFlags() output
+ */
+export async function postResolution(deal, resolved) {
+  if (!resolved || !resolved.length) return null;
+  const lines = resolved.map(
+    (r) =>
+      `✅ *${r.label} closed* — ${r.elements
+        .map((e) => `${e.element} ${e.before ?? '-'} → ${e.after ?? '-'}`)
+        .join(', ')}`
+  );
+  const blocks = [
+    {
+      type: 'section',
+      text: { type: 'mrkdwn', text: `🎉 *${deal.name}* is de-risking  ·  _${deal.stage || 'unknown'}_` },
+    },
+    { type: 'section', text: { type: 'mrkdwn', text: lines.join('\n') } },
+  ];
+  return postMessage({ text: `${deal.name} closed ${resolved.length} gap(s)`, blocks });
+}
+
 /** Full scorecard for a single freshly-ingested deal — the reply to a dropped transcript. */
-export async function postDealCard(deal, trends, flags) {
+export async function postDealCard(deal, trends, flags, resolved = []) {
   const ind = healthIndicator(flags);
   const scores = Object.entries(ELEMENT_LABELS)
     .map(([el, label]) => `${label}: *${trends.latest[el] ?? '-'}*`)
@@ -154,6 +177,20 @@ export async function postDealCard(deal, trends, flags) {
     { type: 'section', text: { type: 'mrkdwn', text: scores } },
     { type: 'section', text: { type: 'mrkdwn', text: flagBlock } },
   ];
+
+  if (resolved && resolved.length) {
+    blocks.push({
+      type: 'section',
+      text: {
+        type: 'mrkdwn',
+        text: resolved
+          .map((r) => `✅ *Closed since last call:* ${r.label} (${r.elements
+            .map((e) => `${e.element} ${e.before ?? '-'} → ${e.after ?? '-'}`)
+            .join(', ')})`)
+          .join('\n'),
+      },
+    });
+  }
 
   return postMessage({ text: `${deal.name} scored — ${flags.length} flag(s)`, blocks });
 }

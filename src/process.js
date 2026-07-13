@@ -17,7 +17,8 @@ import { computeTrends } from './trends.js';
 import { computeFlags } from './flags.js';
 import { ELEMENTS } from './prompts/meddpicc.js';
 import { hubspotEnabled, upsertDeal, writeNoteToDeal, buildNoteBody } from './hubspot.js';
-import { slackEnabled, postDigest, postAlert } from './slack.js';
+import { slackEnabled, postDigest, postAlert, postResolution } from './slack.js';
+import { computeResolvedFlags } from './resolutions.js';
 
 const ABBR = {
   metrics: 'M',
@@ -143,6 +144,8 @@ export async function runPipeline(opts = {}) {
     };
 
     const flags = computeFlags(deal, trends, ctx);
+    // Gap-closed loop: flags that fired on the prior call but no longer fire now.
+    const resolved = computeResolvedFlags(deal, calls, flags);
     // computeFlags returns flag_type/severity/detail/call_id — stamp deal_id so the
     // rows persist against the deal (otherwise they land with a null deal_id and are
     // orphaned in Supabase, invisible to any query by deal).
@@ -155,7 +158,7 @@ export async function runPipeline(opts = {}) {
         const hsId = await upsertDeal({ name: deal.name });
         await setDealHubspotId(dealId, hsId);
         const summary = summaries.get(dealId)?.summary || '';
-        const body = buildNoteBody({ deal, trends, flags, summary });
+        const body = buildNoteBody({ deal, trends, flags, summary, resolved });
         await writeNoteToDeal({ dealId: hsId, body });
         if (!opts.quiet) console.log(`   ↳ HubSpot: deal ${hsId} — note written (${flags.length} flag(s))`);
       } catch (err) {
@@ -163,7 +166,7 @@ export async function runPipeline(opts = {}) {
       }
     }
 
-    results.push({ deal, trends, flags, summary: summaries.get(dealId)?.summary || '' });
+    results.push({ deal, trends, flags, resolved, summary: summaries.get(dealId)?.summary || '' });
   }
 
   // Slack delivery: per-deal alerts for red flags + a health digest of everything.
@@ -172,10 +175,14 @@ export async function runPipeline(opts = {}) {
   }
   if (opts.notifySlack && slackEnabled() && results.length) {
     try {
-      for (const { deal, flags } of results) {
+      for (const { deal, flags, resolved } of results) {
         if (flags.some((f) => f.severity === 'red')) {
           await postAlert(deal, flags);
           if (!opts.quiet) console.log(`   ↳ Slack alert: ${deal.name}`);
+        }
+        if (resolved && resolved.length) {
+          await postResolution(deal, resolved);
+          if (!opts.quiet) console.log(`   ↳ Slack: ${deal.name} closed ${resolved.length} gap(s)`);
         }
       }
       await postDigest(results);
@@ -197,14 +204,17 @@ function printSummary(results) {
   const header = ['Deal', 'Stage', ...ELEMENTS.map((e) => ABBR[e]), 'Flags'];
   const rows = results
     .sort((a, b) => a.deal.name.localeCompare(b.deal.name))
-    .map(({ deal, trends, flags }) => {
+    .map(({ deal, trends, flags, resolved }) => {
       const cells = ELEMENTS.map((e) => {
         const v = trends.latest[e];
         return v == null ? '-' : String(v);
       });
-      const flagStr = flags.length
+      let flagStr = flags.length
         ? flags.map((f) => `${f.severity === 'red' ? '🔴' : '🟡'} ${f.flag_type}`).join(', ')
         : '✓ clean';
+      if (resolved && resolved.length) {
+        flagStr += `  ✅ closed: ${resolved.map((r) => r.flag_type).join(', ')}`;
+      }
       return [deal.name, deal.stage || '?', ...cells, flagStr];
     });
 

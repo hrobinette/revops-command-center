@@ -145,7 +145,7 @@ const ELEMENT_LABELS = {
  * @param flags   [{ flag_type, severity, detail }]
  * @param summary the model's 2-3 sentence health assessment for the latest call
  */
-export function buildNoteBody({ deal, trends, flags, summary }) {
+export function buildNoteBody({ deal, trends, flags, summary, resolved }) {
   const rows = Object.entries(ELEMENT_LABELS)
     .map(([el, label]) => {
       const v = trends.latest[el];
@@ -164,6 +164,19 @@ export function buildNoteBody({ deal, trends, flags, summary }) {
       '</ul>'
     : '<p>✅ No risk flags — deal looks healthy.</p>';
 
+  const resolvedHtml = resolved && resolved.length
+    ? `<p><b>✅ Closed since last call</b></p><ul>` +
+      resolved
+        .map(
+          (r) =>
+            `<li><b>${r.label}</b> — ${r.elements
+              .map((e) => `${e.element} ${e.before ?? '-'} → ${e.after ?? '-'}`)
+              .join(', ')}</li>`
+        )
+        .join('') +
+      `</ul>`
+    : '';
+
   return [
     `<h3>RevOps Command Center — MEDDPICC scoring</h3>`,
     `<p><b>Deal:</b> ${deal.name} &nbsp; <b>Stage:</b> ${deal.stage || 'unknown'}</p>`,
@@ -171,6 +184,7 @@ export function buildNoteBody({ deal, trends, flags, summary }) {
     `<table>${rows}</table>`,
     `<p><b>Risk flags</b></p>`,
     flagHtml,
+    resolvedHtml,
     `<p style="color:#888;font-size:11px">Auto-generated from the latest call transcript. Scores 0-2 absent · 3-5 unvalidated · 6-8 engaged · 9-10 confirmed.</p>`,
   ]
     .filter(Boolean)
