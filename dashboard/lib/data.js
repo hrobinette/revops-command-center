@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
+import { AMOUNTS } from './amounts';
 
 const url = process.env.SUPABASE_URL;
 const key = process.env.SUPABASE_SERVICE_KEY;
@@ -63,6 +64,34 @@ export async function getOverview() {
       return { call: c.call_number, score: s ? s.score : null };
     });
     const dflags = flags.filter((f) => f.deal_id === deal.id);
+
+    // Forecast inputs: MEDDPICC completeness, momentum, and risk-adjusted amount.
+    const compVals = ELEMENTS.map((el) => latestScores[el]).filter((v) => v != null);
+    const completeness = compVals.length ? compVals.reduce((a, b) => a + b, 0) / (compVals.length * 10) : 0;
+    let mSum = 0;
+    let mSeen = 0;
+    for (const el of ELEMENTS) {
+      const vals = dcalls
+        .map((c) => {
+          const s = scores.find((x) => x.call_id === c.id && x.element === el);
+          return s ? s.score : null;
+        })
+        .filter((v) => v != null);
+      if (vals.length >= 2) {
+        mSum += vals[vals.length - 1] - vals[vals.length - 2];
+        mSeen++;
+      }
+    }
+    const momentum = !mSeen
+      ? { dir: 'new', arrow: '·', mult: 1 }
+      : mSum > 0
+      ? { dir: 'improving', arrow: '↑', mult: 1 }
+      : mSum < 0
+      ? { dir: 'declining', arrow: '↓', mult: 0.85 }
+      : { dir: 'flat', arrow: '→', mult: 1 };
+    const amount = AMOUNTS[deal.name] ?? null;
+    const riskAdjusted = amount == null ? null : Math.round(amount * completeness * momentum.mult);
+
     return {
       id: deal.id,
       name: deal.name,
@@ -72,6 +101,10 @@ export async function getOverview() {
       flags: dflags,
       health: health(dflags),
       callCount: dcalls.length,
+      amount,
+      completeness,
+      momentum,
+      riskAdjusted,
     };
   });
 }

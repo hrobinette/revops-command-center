@@ -6,12 +6,17 @@ import { AutoRefresh } from '../components/AutoRefresh';
 export const dynamic = 'force-dynamic';
 
 const ORDER = { critical: 0, warning: 1, good: 2 };
+const usd = (n) => '$' + Math.round(n).toLocaleString('en-US');
+const MOM_COLOR = { improving: 'var(--good)', declining: 'var(--crit)', flat: 'var(--muted)', new: 'var(--muted)' };
 
 export default async function Page() {
   const deals = await getOverview();
   const crit = deals.filter((d) => d.health === 'critical').length;
   const watch = deals.filter((d) => d.health === 'warning').length;
   const healthy = deals.filter((d) => d.health === 'good').length;
+  const committed = deals.reduce((s, d) => s + (d.amount || 0), 0);
+  const riskAdjusted = deals.reduce((s, d) => s + (d.riskAdjusted || 0), 0);
+  const erosionPct = committed ? Math.round(((committed - riskAdjusted) / committed) * 100) : 0;
   const sorted = [...deals].sort((a, b) => ORDER[a.health] - ORDER[b.health] || a.name.localeCompare(b.name));
   const featured =
     deals.filter((d) => d.callCount > 1 && d.health === 'critical').sort((a, b) => b.callCount - a.callCount)[0] ||
@@ -49,6 +54,31 @@ export default async function Page() {
         </div>
       </div>
 
+      <div className="fcast">
+        <div className="fcast-h">
+          <h3>Risk-adjusted forecast</h3>
+          <span className="badge warn">{erosionPct}% risk discount</span>
+        </div>
+        <div className="fcast-nums">
+          <div className="fc-item">
+            <div className="fc-lab">Committed pipeline</div>
+            <div className="fc-val">{usd(committed)}</div>
+          </div>
+          <div className="fc-arrow">→</div>
+          <div className="fc-item">
+            <div className="fc-lab">Risk-adjusted</div>
+            <div className="fc-val" style={{ color: 'var(--brand)' }}>{usd(riskAdjusted)}</div>
+          </div>
+        </div>
+        <div className="fc-bar" aria-hidden="true">
+          <div className="fc-bar-fill" style={{ width: `${committed ? (riskAdjusted / committed) * 100 : 0}%` }} />
+        </div>
+        <div className="cap">
+          Committed pipeline weighted by each deal’s <b>MEDDPICC completeness</b> and <b>momentum</b> — what’s
+          actually de-risked, not the raw sum.
+        </div>
+      </div>
+
       <div className="grid">
         <div className="card">
           <div className="card-h">
@@ -62,6 +92,12 @@ export default async function Page() {
                 <div className="nm">{d.name}</div>
                 <div className="sg">{d.stage || '—'}</div>
               </div>
+              {d.amount != null && (
+                <div className="ra" title={`${usd(d.amount)} committed · ${Math.round(d.completeness * 100)}% MEDDPICC · ${d.momentum.dir}`}>
+                  <span className="ra-v">{usd(d.riskAdjusted)}</span>
+                  <span className="ra-m" style={{ color: MOM_COLOR[d.momentum.dir] }}>{d.momentum.arrow}</span>
+                </div>
+              )}
               <div className="fl"><FlagPills flags={d.flags} /></div>
               <span className="chev">›</span>
             </Link>
