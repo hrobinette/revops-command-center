@@ -57,15 +57,57 @@ export async function findDealByName(name) {
   return body.results?.[0]?.id || null;
 }
 
-/** Ensure a deal exists in HubSpot; return its id. Self-seeds the demo deals. */
+/**
+ * Fuzzy-search deals by name for the human-in-the-loop confirmation step.
+ * Returns [{ id, name }] ranked best-first (exact name wins), so a near-miss
+ * header like "Harbor Health" surfaces "Harbor Health – CSPM Expansion" as a
+ * candidate instead of silently looking like a brand-new deal.
+ */
+export async function searchDealsByName(name, limit = 5) {
+  const q = (name || '').trim();
+  if (!q) return [];
+  // Full-text `query` is HubSpot's forgiving "search box" match — tolerant of
+  // multi-word names and partial matches where a CONTAINS_TOKEN filter is not.
+  const body = await hs('/crm/v3/objects/deals/search', {
+    method: 'POST',
+    body: JSON.stringify({
+      query: q,
+      properties: ['dealname'],
+      limit,
+    }),
+  });
+  const results = (body.results || []).map((r) => ({
+    id: r.id,
+    name: r.properties?.dealname || '(unnamed)',
+  }));
+  const lc = q.toLowerCase();
+  return results.sort((a, b) => {
+    const ax = a.name.toLowerCase() === lc ? 0 : 1;
+    const bx = b.name.toLowerCase() === lc ? 0 : 1;
+    return ax - bx;
+  });
+}
+
+/** Create a new deal; return its id. */
+export async function createDeal({ name, stage }) {
+  const properties = { dealname: name };
+  if (stage) properties.dealstage = stage;
+  const created = await hs('/crm/v3/objects/deals', {
+    method: 'POST',
+    body: JSON.stringify({ properties }),
+  });
+  return created.id;
+}
+
+/**
+ * Ensure a deal exists in HubSpot; return its id. Auto-creates on a miss.
+ * Used by the non-interactive CLI/demo path — NOT the Slack approval flow,
+ * which asks a human before creating. Self-seeds the demo deals.
+ */
 export async function upsertDeal({ name }) {
   const existing = await findDealByName(name);
   if (existing) return existing;
-  const created = await hs('/crm/v3/objects/deals', {
-    method: 'POST',
-    body: JSON.stringify({ properties: { dealname: name } }),
-  });
-  return created.id;
+  return createDeal({ name });
 }
 
 /** Create a note and associate it with a deal. `timestamp` is ISO or epoch ms. */

@@ -25,7 +25,7 @@ presenting + ~2 min Q&A. Detailed talking points for each beat are in "The run-t
 | 2:30–5:00 | **Scoreboard** | terminal: `npm run process -- --all` | Lakeshore clean · Harbor 🔴 missing-EB · **Trellis 🔴 champion decline across 3 calls** (the human-misses moment) |
 | 5:00–6:00 | **In the CRM** | HubSpot: Harbor note | The rep's view — the agent's MEDDPICC scorecard on the deal |
 | 6:00–7:00 | **In Slack** | `#revops-command-center` | The manager's view — alerts + digest |
-| 7:00–9:30 | **⭐ Live moment** | Slack | **Drag a transcript into the Slack channel** → the bot scores it and replies with the red-flag alert, live — no terminal |
+| 7:00–9:30 | **⭐ Live moment** | Slack | **Drag a transcript into the Slack channel** → the bot scores it, flags the risk, then asks to `Update`/`Create` the HubSpot deal → **you approve with one click** — live, no terminal |
 | 9:30–10:30 | **Autonomy** | terminal: `systemctl list-timers` | It fires that same job every 15 min on its own |
 | 10:30–13:00 | **Engineering rigor** | terminal / slide | Model benchmark, test suite 15/0, isolation, robustness (the graded stuff) |
 | 13:00–13:30 | **Close** | you | Restate the transformation |
@@ -94,7 +94,7 @@ in two **browser tabs**. You're just flipping between a terminal and two tabs.
 | Scoreboard | Terminal | `npm run process -- --all` → talk over the table |
 | In the CRM | HubSpot tab | Open **Harbor Health** → Notes |
 | In Slack | Slack tab | Scroll the channel |
-| ⭐ Live moment | **Slack tab** | **Drag the transcript file into the channel** and send — the bot replies with the scorecard right there. No terminal. |
+| ⭐ Live moment | **Slack tab** | **Drag the transcript file into the channel** and send — the bot replies with the scorecard, then approval buttons; **click `Update`/`Create`** to write to HubSpot. No terminal. |
 | Autonomy | Terminal | `systemctl list-timers 'revops-*'` |
 
 Note: the Slack listener (`npm run listen`) runs in its own terminal, started before the demo — you
@@ -151,15 +151,22 @@ Switch to **`#revops-command-center`**.
 
 **Drag the transcript file into `#revops-command-center`** (from your laptop) and send it.
 Narrate while it scores (~15s): *"No terminal, no dashboard — I just dropped a call into Slack.
-The bot is downloading it, scoring all eight MEDDPICC elements, writing to HubSpot…"*
-Moments later the bot replies **in the channel**: 📥 *Got it — scoring…* then a **scorecard with
-the 🔴 red flag**.
-> "That's the whole thesis — and it's the real product experience. A rep drops the call into Slack,
-> and before they're back at their desk it's scored, in the CRM, and the manager's been alerted.
-> No one touched a terminal."
+The bot is scoring all eight MEDDPICC elements and checking HubSpot for a matching deal…"*
+The bot replies **in the channel**: 📥 *Got it — scoring…* → a **scorecard with the 🔴 red flag**
+→ then an **approval prompt** with buttons: *found a match — `Update` this deal, or `Create` a new one?*
+> "And here's the part that matters when something writes to your CRM: it does **not** act on its
+> own. It found the existing deal and it's asking me before it touches it — deal data is too
+> critical to let an agent write blind. That's the human in the loop."
+
+**Click `Update`** (or `Create` for a net-new deal). The message rewrites in place:
+✅ *Updated existing deal and wrote the MEDDPICC note to HubSpot (approved by …)*.
+> "That's the whole thesis — the real product experience. A rep drops the call into Slack; the
+> agent scores it, flags the risk, and *proposes* the CRM update — a human approves with one
+> click, and it's done, before they're back at their desk. No duplicate deals, no blind writes."
 
 *Fallback if the drag/listener misbehaves:* run it from the terminal instead —
-`cp demo/incoming/cobalt_systems.txt transcripts/ && systemctl start revops-poll.service` — then switch to Slack.
+`npm run process -- --only <name> --push-hubspot --notify-slack` (the CLI path writes directly,
+without the approval gate) — then switch to Slack.
 
 ### Beat 6 — And it runs itself (45s) [CORE]
 ```bash
@@ -189,8 +196,12 @@ Three credibility points:
 ## The live moment — exact mechanics & safety
 
 - **Primary path (Slack drag-and-drop):** with `npm run listen` running, drag a transcript file
-  from your laptop into `#revops-command-center`. The bot saves it, scores it, syncs HubSpot, and
-  replies with the scorecard. That's it — no terminal.
+  from your laptop into `#revops-command-center`. The bot saves it, scores it, replies with the
+  scorecard, then **asks before writing to HubSpot** — it fuzzy-matches the deal name and posts
+  `Update` / `Create` / `Skip` buttons. Nothing hits the CRM until you click. That's it — no terminal.
+- **Two clicks to rehearse the gate:** drop a transcript whose deal exists in the portal (e.g. a
+  Harbor Health call → `Update: Harbor Health Systems`), and one with a new name → `Create`. The
+  approval message rewrites in place to the outcome and records who approved.
 - **Have the file on your laptop.** The staged transcripts live server-side in `demo/incoming/`;
   download one (or use your own). Each drop needs a **fresh deal name** — re-dropping the same
   filename is skipped as already-processed (the bot will say it couldn't score it). Use a different

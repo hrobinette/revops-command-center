@@ -44,6 +44,19 @@ async function postMessage({ text, blocks }) {
   return slack('chat.postMessage', { channel: CHANNEL, text, blocks });
 }
 
+// Element labels for the scorecard (mirrors hubspot.js). Kept local so slack.js
+// has no cross-module dependency for rendering.
+const ELEMENT_LABELS = {
+  metrics: 'Metrics',
+  economic_buyer: 'Economic Buyer',
+  decision_criteria: 'Decision Criteria',
+  decision_process: 'Decision Process',
+  paper_process: 'Paper Process',
+  identify_pain: 'Identify Pain',
+  champion: 'Champion',
+  competition: 'Competition',
+};
+
 function healthIndicator(flags) {
   if (flags.some((f) => f.severity === 'red')) return '🔴';
   if (flags.some((f) => f.severity === 'yellow')) return '🟡';
@@ -136,7 +149,7 @@ export async function postDealCard(deal, trends, flags) {
     { type: 'header', text: { type: 'plain_text', text: `${ind} ${deal.name} — scored`, emoji: true } },
     {
       type: 'context',
-      elements: [{ type: 'mrkdwn', text: `Stage: *${deal.stage || 'unknown'}*  ·  synced to HubSpot` }],
+      elements: [{ type: 'mrkdwn', text: `Stage: *${deal.stage || 'unknown'}*  ·  scored & saved` }],
     },
     { type: 'section', text: { type: 'mrkdwn', text: scores } },
     { type: 'section', text: { type: 'mrkdwn', text: flagBlock } },

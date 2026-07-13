@@ -163,7 +163,7 @@ export async function runPipeline(opts = {}) {
       }
     }
 
-    results.push({ deal, trends, flags });
+    results.push({ deal, trends, flags, summary: summaries.get(dealId)?.summary || '' });
   }
 
   // Slack delivery: per-deal alerts for red flags + a health digest of everything.
