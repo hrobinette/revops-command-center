@@ -11,7 +11,7 @@ export const AMOUNTS = {
   "Harbor Health Systems": 40000,
   "Ironvale Manufacturing": 75000,
   "Lakeshore Fintech": 65000,
-  "Larkfield Hotels": 85000,
+  "Larkfield Hotels": 65000,
   "NovaWorks": 120000,
   "Ridgeline Telecom": 45000,
   "Trellis Logistics": 70000,
