@@ -1,0 +1,100 @@
+CALL TRANSCRIPT
+Deal: Ashgrove University
+Call: 1 of 1 — Discovery with Director of Enterprise Infrastructure
+Date: 2026-07-22
+Duration: 30 min
+Attendees: Dana Whitfield (ShieldPoint, AE), Nadia Ellison (Ashgrove University, Director of Enterprise Infrastructure), Corey Lund (Ashgrove University, Systems Engineer)
+
+---
+
+Dana: Nadia, Corey, thanks for the time. You came to us through the higher ed consortium listing, which usually means something specific prompted it. What's going on?
+
+Nadia: A peer institution got hit in March. Ransomware, took their student information system down for eleven days during registration. It made the rounds at every conference since, and our board asked what our exposure looks like.
+
+Dana: And what did you tell them?
+
+Nadia: That I couldn't answer the question accurately, which was not a comfortable meeting.
+
+Corey: The honest version is we don't have a full inventory. Central IT runs about thirty accounts across AWS and Azure. But every college can spin up their own, and several have. Engineering has their own AWS org. The medical school has something in Azure that I've never had credentials for.
+
+Dana: Do you have a rough count of what's outside central IT?
+
+Corey: Rough is the right word. Somewhere between forty and seventy accounts. I'd bet on the higher end. There's no authoritative list, which is sort of the whole problem.
+
+Nadia: And a lot of it is research. Grant-funded projects stand up infrastructure, the grant ends, the postdoc leaves, and the infrastructure just stays there. Nobody deprovisions anything.
+
+Dana: Has anything actually surfaced yet, or is this still hypothetical?
+
+Corey: Our internal audit ran a scan in May with a free tool. They found a storage bucket in one of the research accounts with what looked like student records in it. Names, IDs, some advising notes. It had been publicly readable for about fourteen months.
+
+Dana: How was that resolved?
+
+Corey: I closed it in twenty minutes. That's not the issue. The issue is I found out about it because internal audit happened to run a scan that month. If they hadn't, it would still be open.
+
+Dana: Do you have any sense of what that exposure would have cost if it had been discovered externally? Notification obligations, anything quantified?
+
+Nadia: No. Our general counsel would have a view but I've never asked for a number. Nobody here has built that model.
+
+Corey: We don't track anything in dollars. This isn't that kind of organization.
+
+Dana: Understood, and that's more common in higher ed than anywhere else I sell. If you did move ahead with something like this, how would it get funded?
+
+Nadia: That's genuinely the hardest question you've asked me.
+
+Dana: Take your time.
+
+Nadia: Our CIO announced his retirement in May. He's out at the end of the calendar year. There's a national search running and no interim named yet, so right now the office reports to the Provost on paper and to nobody in practice.
+
+Dana: So who approves a purchase in the meantime?
+
+Nadia: For central IT operating budget, I have some room, but nothing near what a platform like this costs. Anything larger goes through a technology governance committee, and that committee has been deferring non-urgent decisions until the new CIO is seated. There's also a question of whether the colleges that run their own accounts would be asked to contribute, which is a political conversation I have not started.
+
+Dana: Would the board pressure change that calculus at all? They asked the question, after all.
+
+Nadia: Possibly. But the board asks a lot of questions and doesn't always fund the answers. I don't want to overstate my read on it.
+
+Dana: Fair. Corey, on the technical side, what would this need to do?
+
+Corey: Find the accounts I don't know about. Everything else is secondary. If it can only tell me about the thirty I already manage, it's solving the part I'm least worried about.
+
+Dana: Discovery across an org you don't fully control is something we handle well, though it does depend on how the accounts are federated. Are the college accounts under the same payer?
+
+Corey: Some are. Engineering is. The medical school is separate billing entirely, and I suspect a few departments are paying with a purchasing card, which means I have no visibility at all.
+
+Dana: That last category is the hard one, honestly. I won't oversell it — those are the accounts nobody can find automatically.
+
+Corey: I appreciate you saying that. Everyone else has told me they'd find everything.
+
+Dana: Nadia, has the team written down what you actually need from a platform like this? Requirements, evaluation criteria, anything on paper?
+
+Nadia: No. We have the board question and we have Corey's list of frustrations. Nothing formal.
+
+Dana: Is that something you're planning to do?
+
+Nadia: In theory. In practice, the person who would write it is me, and I'm covering a vacant CIO office. It keeps sliding.
+
+Dana: Are you evaluating anyone else alongside us?
+
+Nadia: We've had one demo from Vantage Secure. They came through the consortium too. Corey was on that call.
+
+Corey: The interface was nicer than yours, I'll be honest. I couldn't tell you whether the underlying coverage is better or worse. It was a demo environment, so it found everything, because of course it did.
+
+Nadia: And that's my worry about this whole process. We'll pick based on which demo felt better, because we haven't defined what we're actually comparing. I know that's not a good way to spend institutional money.
+
+Dana: I'd rather be measured against criteria than against a demo. If it's useful, I can send an evaluation framework other universities have used. Vendor-neutral, no branding, you set the weights.
+
+Nadia: Send it. I can't promise it gets filled out before the fall semester starts.
+
+Dana: Understood. What would be a useful next step that doesn't need anyone's approval?
+
+Corey: Point it at the engineering org. It's the largest shadow estate and they've agreed in principle to let us look. If it finds things I don't know about, that's the argument I need to take upstairs.
+
+Dana: Read-only, scoped to that org, findings the same day. I'll send the setup steps and a short scoping note this afternoon.
+
+Nadia: Do that. And Corey, tell the engineering folks before anything runs. I don't want to explain a surprise to a dean.
+
+Dana: Understood. Thanks both, this was genuinely useful.
+
+Corey: Thanks.
+
+--- END OF CALL ---

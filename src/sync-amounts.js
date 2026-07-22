@@ -88,6 +88,18 @@ for (const { name } of deals) {
   }
 }
 
+// Carry forward amounts for names that aren't deals yet. A transcript staged for a
+// demo has an amount seeded here before it is ever scored, and dropping it would
+// silently un-price that deal the moment it appears — the exact failure this script
+// exists to prevent.
+const staged = [];
+for (const [name, value] of Object.entries(previous)) {
+  if (amounts[name] == null) {
+    amounts[name] = value;
+    staged.push(`${name} → $${value.toLocaleString('en-US')}`);
+  }
+}
+
 await writeFile(JSON_FILE, JSON.stringify({ _comment: COMMENT, ...amounts }, null, 2) + '\n', 'utf8');
 
 const body = Object.entries(amounts)
@@ -105,6 +117,10 @@ matched.forEach((m) => console.log(`   ${m}`));
 if (kept.length) {
   console.log(`\n• kept ${kept.length} previous value(s):`);
   kept.forEach((m) => console.log(`   ${m}`));
+}
+if (staged.length) {
+  console.log(`\n• carried forward ${staged.length} amount(s) for deals not yet scored:`);
+  staged.forEach((m) => console.log(`   ${m}`));
 }
 if (missing.length) {
   console.log(`\n⚠ no amount anywhere (excluded from $ totals): ${missing.join(', ')}`);

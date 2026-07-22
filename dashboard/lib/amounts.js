@@ -2,6 +2,7 @@
 // Mirrors ../../data/deal-amounts.json — the Vercel deployment's root is
 // dashboard/, so it can't read the repo-root JSON at runtime.
 export const AMOUNTS = {
+  "Ashgrove University": 100000,
   "Bluepine Retail": 80000,
   "Cascade Logistics": 150000,
   "Cedarhill Robotics": 60000,
@@ -11,7 +12,7 @@ export const AMOUNTS = {
   "Ironvale Manufacturing": 75000,
   "Lakeshore Fintech": 65000,
   "NovaWorks": 120000,
-  "Sable Point Insurance": 110000,
   "Trellis Logistics": 70000,
   "Varis Bancorp": 50000,
+  "Sable Point Insurance": 110000,
 };
