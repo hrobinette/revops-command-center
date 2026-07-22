@@ -1,0 +1,102 @@
+CALL TRANSCRIPT
+Deal: Larkfield Hotels
+Call: 1 of 1 — Discovery with Director of IT Operations
+Date: 2026-07-22
+Duration: 29 min
+Attendees: Dana Whitfield (ShieldPoint, AE), Owen Brandt (Larkfield Hotels, Director of IT Operations), Ines Falco (Larkfield Hotels, Infrastructure Manager)
+
+---
+
+Dana: Owen, Ines, thanks for the time. You mentioned on the intro email that this got urgent recently. What changed?
+
+Owen: A competitor of ours had their point of sale vendor breached in May. Card data, about forty properties. It's been all over the trade press and our owners have been asking questions ever since.
+
+Dana: When you say owners, do you mean corporate leadership or the property owners?
+
+Owen: Both, and that distinction is going to come up a lot on this call. We operate a hundred and forty properties. Corporate owns thirty-one outright. The rest are franchised or managed under agreement, and those owners have their own opinions about technology spend.
+
+Ines: And their own infrastructure, in some cases. Corporate provides a standard stack, but a franchisee can request an exception and several have taken it.
+
+Dana: How much of the cloud estate does corporate actually control?
+
+Ines: Our AWS organization has about forty accounts. That's the part I can speak to. There's a separate Azure tenant that came from the loyalty platform acquisition in 2023 and is still run by that team semi-independently. And then there's whatever the exception properties are doing, which I have no window into whatsoever.
+
+Dana: Is any of that in PCI scope?
+
+Ines: The payment path is supposed to be tokenized and out of scope. Supposed to is doing work in that sentence. I could not prove it for the Azure side.
+
+Dana: Has anything actually surfaced internally, or is this all reaction to the competitor's incident?
+
+Owen: We had our own thing in April, smaller. A storage bucket with guest folio exports in it, going back about two years. Names, stay dates, room rates, some loyalty numbers. No card data.
+
+Dana: How was it found?
+
+Ines: One of our developers found it while looking for something else. It had been open for at least nine months. That's the part that keeps me up, honestly, that it was luck.
+
+Dana: Did that get reported anywhere?
+
+Owen: Legal reviewed and concluded no notification obligation, given what was in it. But it went into the risk register and the audit committee saw it in June, which is part of why we're on this call.
+
+Dana: Have you attached any cost to any of this? The April incident, the manual review effort, anything you could put in front of finance?
+
+Owen: No. Nobody has asked me for a number and I wouldn't know how to build one honestly. The audit committee wants to know we're doing something. They haven't asked what it's worth.
+
+Ines: We don't measure anything in that direction. I couldn't even tell you how many hours we spent on the April cleanup.
+
+Dana: That's common, and it's usually the thing that unlocks budget later. Speaking of which — if you wanted to move forward, how does that get approved?
+
+Owen: Complicated right now. Our CFO started six weeks ago.
+
+Dana: New CFO. Has he set a direction yet?
+
+Owen: She, and no. She's in the middle of her first full budget review and there's an informal hold on new capital commitments until that's done. My VP told me to keep the conversation going but not to expect a decision before the fall.
+
+Dana: Does the audit committee interest change that?
+
+Owen: It might. But I'd be guessing. I've never presented to that committee and I don't have a relationship with the new CFO.
+
+Ines: There's also the question of whether the franchised properties get charged back for any of this, which is a whole separate negotiation with the owners association. Nobody wants to open that.
+
+Dana: Understood. Ines, on the technical side, what would this need to do first?
+
+Ines: Tell me what's in the Azure tenant. That's the one I can't see and the one most likely to be carrying something it shouldn't. Everything else is a nice-to-have until that's answered.
+
+Dana: Any container footprint?
+
+Ines: A little. ECS for the booking service. Most of it is still EC2 and RDS, we're not a modern shop.
+
+Dana: That's fine, and honestly simpler to cover. Owen, has anyone written down what you need this to do? A requirements list, evaluation criteria, anything the team has agreed on?
+
+Owen: No. We have the audit committee's concern and we have Ines's list. Nothing formal, and I'll be honest, I'm not sure who would own writing it.
+
+Dana: Is that something you'd want structured help with?
+
+Owen: Maybe, though I'd want it to be ours rather than a vendor's document. No offense meant.
+
+Dana: None taken, that's the right instinct. Are you speaking with anyone else?
+
+Owen: We had a call with Halcyon Security two weeks ago. Our insurance broker recommended them, so there's a bit of a halo on that one.
+
+Dana: How did it land?
+
+Ines: Their reporting looked good. I didn't get deep enough to judge the coverage. It was a demo environment, so everything worked.
+
+Owen: And that's my concern with this whole process. We're going to end up choosing between two demos and a broker's recommendation, and I don't think anyone here could articulate what would actually make one better than the other. We haven't done that work.
+
+Dana: I'd rather be judged on criteria than on a demo. I can send you a vendor-neutral evaluation framework if that's useful. Categories only, you set the weights, nothing branded.
+
+Owen: Send it. I can't promise when we'd get to it.
+
+Dana: Fair. What's a next step that doesn't need the CFO?
+
+Ines: Point it at the Azure tenant. If it surfaces things the loyalty team doesn't know about, that's the conversation starter I need.
+
+Dana: Read-only, scoped to that tenant, findings the same day. I'll send scoping steps this afternoon.
+
+Owen: Do that. And Ines, give the loyalty team a heads up first. I don't want to blindside anyone.
+
+Dana: Understood. Thanks both.
+
+Ines: Thanks.
+
+--- END OF CALL ---
