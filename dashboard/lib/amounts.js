@@ -11,6 +11,7 @@ export const AMOUNTS = {
   "Ironvale Manufacturing": 75000,
   "Lakeshore Fintech": 65000,
   "NovaWorks": 120000,
+  "Sable Point Insurance": 110000,
   "Trellis Logistics": 70000,
   "Varis Bancorp": 50000,
 };
