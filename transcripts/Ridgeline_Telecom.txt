@@ -1,0 +1,102 @@
+CALL TRANSCRIPT
+Deal: Ridgeline Telecom
+Call: 1 of 1 — Discovery with Director of Platform Engineering
+Date: 2026-07-22
+Duration: 30 min
+Attendees: Dana Whitfield (ShieldPoint, AE), Sam Okonjo (Ridgeline Telecom, Director of Platform Engineering), Priscilla Hart (Ridgeline Telecom, Compliance Analyst)
+
+---
+
+Dana: Sam, Priscilla, thanks for making room. Your note said this was time-sensitive, which is not something I hear on a first call very often. What's driving it?
+
+Sam: One of our enterprise customers is up for renewal in October. About four million a year, our second largest. Their procurement sent through a security questionnaire in June that's more detailed than anything we've had before, and there are three questions in the cloud section we can't answer.
+
+Dana: Do they know that yet?
+
+Sam: We've asked for an extension twice. Their security team has been reasonable about it, but the account exec on our side is getting nervous, and rightly.
+
+Priscilla: The questions are all variations on the same theme. Do you continuously monitor your cloud configuration against a defined standard, can you produce evidence, and what's your mean time to remediate. We can't substantiate any of the three.
+
+Dana: What does the current process actually look like?
+
+Sam: There's a checklist. It gets run when we stand up a new environment and then never again. So we have a point-in-time snapshot for maybe half our estate and nothing after that.
+
+Dana: How large is the estate?
+
+Sam: That's the part I'd rather not say out loud. About sixty accounts in AWS across three orgs, and a Google Cloud footprint we picked up when we acquired Bellrock last year.
+
+Dana: How well mapped is the Bellrock side?
+
+Sam: It isn't. Their whole platform team left within four months of close. We have billing access and we have root credentials in a password vault, and that's genuinely the extent of what I can tell you with confidence. There are workloads in there serving live customer traffic and I could not draw you an accurate diagram of them.
+
+Priscilla: Which is also the part that'll fail the questionnaire, because one of the questions asks for a current inventory.
+
+Dana: Has anything gone wrong yet, or is this pressure entirely commercial so far?
+
+Sam: Nothing customer-visible. We had a Kubernetes dashboard exposed on the Bellrock side in February. No evidence anyone found it before we did, but we only found it because someone was chasing a billing anomaly.
+
+Dana: What would it have meant if someone had?
+
+Sam: Depends what they did with it. That cluster has database credentials in it. I don't love thinking about it.
+
+Dana: Have you put any numbers to any of this? Cost of the manual process, cost of the exposure, anything you'd take to a CFO?
+
+Sam: No. I know the renewal is four million and I know this questionnaire is the thing standing between us and it. That's the only number in play.
+
+Priscilla: We don't have a security metrics program. I produce a quarterly compliance summary and it's qualitative.
+
+Dana: Okay. If you decided to move on this, how does it get approved?
+
+Sam: Less clearly than it would have six months ago. Our VP of Security left in April and the role hasn't been backfilled. Security reports into the CTO on an interim basis, and the CTO is consumed with a network modernization program that's a hundred times the size of this.
+
+Dana: Does he have visibility into the questionnaire problem?
+
+Sam: He knows it exists. I've not had thirty minutes of his attention on it. He'd sign if the account team escalated, but I don't want to get there by having the account team panic.
+
+Priscilla: There's also the private equity dimension. Our sponsor put spending controls in place at the start of the year. Anything new above a threshold goes to a capital review, and I've never been through one.
+
+Dana: Do you know what the threshold is?
+
+Sam: Not precisely. I've heard two hundred and fifty thousand, and I've heard it's discretionary. I'd have to ask finance and I haven't.
+
+Dana: That's worth pinning down early, because it changes the shape of what I'd even propose. Priscilla, on your side, has anyone written down what this needs to do? Requirements, must-haves, evaluation criteria?
+
+Priscilla: No. We have the questionnaire, which tells us what we need to be able to say. Nobody's turned that into what a product has to do.
+
+Sam: And the two aren't the same thing, I realize. The questionnaire would let us buy something that produces a nice report and doesn't actually improve anything. That's the trap.
+
+Dana: That's a sharper read than most people have at this stage. Are you looking at other vendors?
+
+Sam: We've seen Northbeam Security. Our sponsor has another portfolio company running them, so they came in through that channel with a warm introduction.
+
+Dana: How did it go?
+
+Sam: The demo was strong. Priscilla liked the evidence packs.
+
+Priscilla: They map directly to the questionnaire language, which is appealing when you're staring at a deadline.
+
+Sam: And that's what worries me. We'd be picking based on which product makes the paperwork easiest, not which one would have caught that exposed dashboard in February. But I can't argue against it, because we haven't defined what we're actually optimizing for.
+
+Dana: If it helps, I can send a vendor-neutral evaluation template. Categories only, you set the weights, no branding on it. It's useful precisely because it separates the paperwork question from the coverage question.
+
+Priscilla: I'd take that.
+
+Sam: Send it, but understand our time between now and October is thin.
+
+Dana: Understood. What's a next step that doesn't require finance or the CTO?
+
+Sam: Point it at the Bellrock org. That's the estate I can't describe. If it produces an inventory I don't already have, that's what I'd take to the CTO, and it's what I'd want in front of the customer.
+
+Dana: Read-only, scoped to that org, findings same day. I'll send scoping steps this afternoon.
+
+Priscilla: Can we get whatever it finds in a format I can attach to the questionnaire response?
+
+Dana: Exportable, yes. I'll show you the format when we review the findings.
+
+Sam: Then let's do it.
+
+Dana: I'll have it over within a couple of hours. Thanks both.
+
+Priscilla: Thanks.
+
+--- END OF CALL ---
