@@ -1,0 +1,54 @@
+CALL TRANSCRIPT
+Deal: Cascade Logistics
+Call: 1 of 1 — Discovery with VP of Operations
+Date: 2026-07-15
+Duration: 31 min
+Attendees: Maya Torres (Northwind Analytics, AE), Dan Whitfield (Cascade Logistics, VP of Operations), Priya Raman (Cascade Logistics, Director of Supply Chain Systems)
+
+---
+
+Maya: Thanks for making time, Dan and Priya. Last time we spoke, you mentioned visibility gaps across your regional distribution centers. Can you walk me through what that looks like day to day?
+
+Dan: Sure. We run nine DCs across the Midwest and Southeast. Right now each one reports inventory and throughput in its own spreadsheet, and my team spends probably 15 to 20 hours a week just consolidating that into something leadership can look at. By the time we see a stockout risk, it's usually already happened.
+
+Priya: And the data quality is inconsistent. Two of our DCs are still on a legacy WMS we inherited from an acquisition, so their numbers come in a different format entirely.
+
+Maya: Got it. When you say leadership looks at it — who's ultimately consuming this reporting, and who feels the pain most when it's late?
+
+Dan: Our CFO, Rebecca Liu. Honestly, she's the one pushing hardest on this. We missed a quarter-end inventory writedown estimate by about $400K last year because of stale data, and that landed on her desk. She told me to go find a fix and that she'd sponsor it if the numbers make sense.
+
+Maya: That's helpful context. So if we quantified this — the manual consolidation time, the writedown risk — what would success look like twelve months in?
+
+Dan: Real-time or near-real-time inventory visibility across all nine sites. Cut the manual reporting effort by at least half. And no more surprises at quarter close. If we could show Rebecca a dashboard she trusts, that alone justifies it.
+
+Priya: I'd add — it needs to integrate with both our current WMS instances. If it can't handle the legacy system, it's a non-starter. That's actually what killed the last vendor we evaluated.
+
+Maya: Which vendor was that, if you don't mind me asking?
+
+Priya: FlowStack. Their demo was slick, but during the technical validation they couldn't parse the legacy exports without a six-month custom services engagement. We walked away in the proof-of-concept stage.
+
+Maya: Understood. Our connector library covers most legacy WMS formats, but I'd want our solutions engineer to validate against a sample export before we promise anything. Would you be open to a technical scoping call next week?
+
+Priya: Yes — send me the request list and I can pull sanitized exports from both systems.
+
+Maya: Great. Dan, on the decision side — if the technical validation goes well, what does the rest of your process look like?
+
+Dan: Priya and I make the recommendation. Rebecca signs off on anything over $50K annually, and this would be over that. IT security review is required for any vendor touching operational data — that's usually a two-to-three week turnaround. Legal is quick unless there's something unusual in the MSA.
+
+Maya: And is there a timeline driving this? Anything on the calendar we should work backwards from?
+
+Dan: Our fiscal year starts November 1. Rebecca wants this budgeted and ideally live before peak season, which for us ramps in early October. So realistically we need a signed agreement by end of August to leave time for implementation.
+
+Maya: That's a tight but workable window. Last question for now — is FlowStack still in the running, or anyone else?
+
+Dan: FlowStack is out. We're also looking at Meridian Ops, mostly because our board member knows their CEO. Their pricing came in about 20% below your initial estimate, but Priya had concerns about their integration depth.
+
+Priya: Their connector list is thinner. But price matters — Rebecca will ask why we'd pay more.
+
+Maya: Fair. When we get to proposal stage, I'll make sure we frame the delta against the writedown exposure and the services cost FlowStack quoted you. Let's get the technical scoping on the calendar first. I'll send over the sample-export request list today and propose times for next Tuesday.
+
+Dan: Works for me. Priya will be the point of contact on the technical side.
+
+Maya: Perfect. Thanks, both — talk next week.
+
+--- END OF CALL ---

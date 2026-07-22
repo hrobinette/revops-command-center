@@ -6,7 +6,15 @@ const key = process.env.SUPABASE_SERVICE_KEY;
 
 function client() {
   if (!url || !key) throw new Error('Missing SUPABASE_URL / SUPABASE_SERVICE_KEY env vars');
-  return createClient(url, key, { auth: { persistSession: false } });
+  // supabase-js goes through global fetch, which Next patches with its Data Cache.
+  // `export const dynamic = 'force-dynamic'` only forces the *route* to render per
+  // request — it does not reliably opt those fetches out, so a cached response can
+  // pin the dashboard to an old snapshot of the deal list while the page itself
+  // re-renders happily. Opt out explicitly at the client.
+  return createClient(url, key, {
+    auth: { persistSession: false },
+    global: { fetch: (input, init = {}) => fetch(input, { ...init, cache: 'no-store' }) },
+  });
 }
 
 export const ELEMENTS = [

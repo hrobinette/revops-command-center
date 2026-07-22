@@ -17,7 +17,7 @@ import {
   writeNoteToDeal,
   buildNoteBody,
 } from './hubspot.js';
-import { setDealHubspotId } from './db.js';
+import { setDealHubspotId, isFileProcessed } from './db.js';
 
 const { App } = bolt;
 const BOT_TOKEN = process.env.SLACK_BOT_TOKEN;
@@ -33,6 +33,24 @@ if (!APP_TOKEN || APP_TOKEN.includes('REPLACE_ME')) {
 }
 
 const app = new App({ token: BOT_TOKEN, appToken: APP_TOKEN, socketMode: true });
+
+// Surface anything Bolt swallows. Without this, a listener that throws after ack()
+// fails completely silently — the button just appears to do nothing.
+app.error(async (error) => {
+  console.error('bolt error:', error?.message || error);
+});
+
+// Log every interactive payload the socket delivers. This is the line that tells us
+// whether a button click reached the app at all: if a click produces no "interaction"
+// log, Slack never sent it (Interactivity disabled on the app), which is a config
+// problem, not a code problem.
+app.use(async ({ body, next }) => {
+  if (body?.type === 'block_actions') {
+    const ids = (body.actions || []).map((a) => a.action_id).join(',');
+    console.log(`interaction: block_actions [${ids}] from ${body.user?.name || body.user?.id}`);
+  }
+  await next();
+});
 
 // Pending CRM writes awaiting a human click, keyed by a short token that rides in
 // the button value. In-memory: a listener restart drops these (the click then
@@ -87,10 +105,20 @@ function approvalBlocks({ token, dealName, candidates }) {
  * until a human clicks an approval button.
  */
 async function handleTranscript({ savedName, channel, client }) {
+  // The pipeline dedupes by filename, so a re-drop of an already-scored file yields
+  // zero deals — same empty result as an unparseable transcript. Distinguish them up
+  // front, otherwise a repeat drop reports "couldn't score", which reads as a broken
+  // file rather than "already done".
+  const alreadyScored = await isFileProcessed(savedName);
+
   const { deals } = await runPipeline({ only: savedName, pushHubspot: false, notifySlack: false, quiet: true });
   if (!deals.length) {
+    console.log(`no deals from ${savedName} (alreadyScored=${alreadyScored})`);
     if (channel) {
-      await client.chat.postMessage({ channel, text: `⚠️ Couldn't score *${savedName}* — is it a call transcript with a \`Deal:\` header?` });
+      const text = alreadyScored
+        ? `↩️ *${savedName}* was already scored earlier, so there's nothing new to process — that's why no scorecard appeared.\nTo score it again as a fresh call, drop it under a different filename.`
+        : `⚠️ Couldn't score *${savedName}* — is it a call transcript with a \`Deal:\` header?`;
+      await client.chat.postMessage({ channel, text });
     }
     return;
   }
@@ -118,7 +146,7 @@ async function handleTranscript({ savedName, channel, client }) {
   // Stash everything the button click needs; keep the note body server-side.
   const token = randomUUID().slice(0, 8);
   const noteBody = buildNoteBody({ deal, trends, flags, summary, resolved });
-  pending.set(token, { dealName: deal.name, dealId: deal.id, noteBody, candidates });
+  pending.set(token, { dealName: deal.name, dealId: deal.id, dealStage: deal.stage, noteBody, candidates });
 
   if (channel) {
     await client.chat.postMessage({
@@ -172,9 +200,17 @@ app.action(/^hs_decision_/, async ({ ack, body, client, action }) => {
   await ack();
   const chan = body.channel?.id;
   const ts = body.message?.ts;
+  console.log(`decision: ${action.action_id} (channel=${chan || 'none'} ts=${ts || 'none'})`);
+  // Never let a failed message update mask the CRM result — log and carry on.
   const replace = async (text) => {
-    if (chan && ts) {
+    if (!chan || !ts) {
+      console.error('cannot update message: missing channel/ts on payload');
+      return;
+    }
+    try {
       await client.chat.update({ channel: chan, ts, text, blocks: [{ type: 'section', text: { type: 'mrkdwn', text } }] });
+    } catch (err) {
+      console.error('chat.update failed:', err.message);
     }
   };
 
@@ -203,7 +239,7 @@ app.action(/^hs_decision_/, async ({ ack, body, client, action }) => {
     let hsId;
     let verb;
     if (choice.a === 'create') {
-      hsId = await createDeal({ name: job.dealName });
+      hsId = await createDeal({ name: job.dealName, stage: job.dealStage });
       verb = 'Created new deal';
     } else if (choice.a === 'update') {
       hsId = choice.h;
@@ -216,6 +252,7 @@ app.action(/^hs_decision_/, async ({ ack, body, client, action }) => {
     await setDealHubspotId(job.dealId, hsId);
     await writeNoteToDeal({ dealId: hsId, body: job.noteBody });
     pending.delete(choice.t);
+    console.log(`hubspot: ${verb.toLowerCase()} ${hsId} for "${job.dealName}" (approved by ${who})`);
     await replace(`✅ *${job.dealName}* — ${verb} and wrote the MEDDPICC note to HubSpot (approved by ${who}).`);
   } catch (err) {
     console.error('writeback error:', err.message);

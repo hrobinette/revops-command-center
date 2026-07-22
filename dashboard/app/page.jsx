@@ -4,6 +4,7 @@ import { TrendChart, FlagPills, HEALTH_COLOR } from '../components/ui';
 import { AutoRefresh } from '../components/AutoRefresh';
 
 export const dynamic = 'force-dynamic';
+export const fetchCache = 'force-no-store';
 
 const ORDER = { critical: 0, warning: 1, good: 2 };
 const usd = (n) => '$' + Math.round(n).toLocaleString('en-US');

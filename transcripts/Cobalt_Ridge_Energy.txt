@@ -1,0 +1,92 @@
+CALL TRANSCRIPT
+Deal: Cobalt Ridge Energy
+Call: 1 of 1 — Discovery with Director of Cloud Infrastructure
+Date: 2026-07-21
+Duration: 31 min
+Attendees: Dana Whitfield (ShieldPoint, AE), Priya Deshmukh (Cobalt Ridge Energy, Director of Cloud Infrastructure), Aaron Vance (Cobalt Ridge Energy, Cloud Security Engineer)
+
+---
+
+Dana: Priya, Aaron, appreciate you making time. When you filled out the form on our site you wrote "post-audit cleanup, need better visibility." I'd love to start there — what happened?
+
+Priya: We had our annual assessment in April. The assessors pulled a report against our AWS and Azure environments and came back with just over four hundred misconfiguration findings. Public storage, over-permissioned roles, logging turned off in a bunch of subscriptions nobody claimed ownership of.
+
+Aaron: A chunk of those were duplicates across accounts, so the real number was smaller. But it was still weeks of work.
+
+Dana: How long did remediation take?
+
+Aaron: About six weeks of my time, mostly. And I'm the only person doing that work full time.
+
+Priya: The part that actually got attention upstairs was separate from the audit. In May a security researcher emailed us about an exposed bucket with some grid telemetry in it. Nothing regulated, nothing customer-facing, but it was ours and we didn't know it was open. That landed on the CIO's desk within a day.
+
+Dana: That's the kind of thing that changes the conversation internally. Do you have a sense of what those six weeks cost, or what the exposure would have cost if it had gone differently?
+
+Priya: Honestly, no. I couldn't put a number on it. Aaron's time, obviously, but he's salaried so nobody counts it. And the bucket thing didn't cost us anything except a very uncomfortable week.
+
+Aaron: We don't track any of that. There's no model for it here.
+
+Dana: That's pretty common, and it's something we can help you build out — a lot of teams find the cost baseline is what unlocks the budget conversation later. Speaking of which, if you moved forward with something like this, where would the money come from?
+
+Priya: That's genuinely unclear right now. We've been without a CISO since February. The security function is reporting into the CIO on an interim basis, and he's got a lot on his plate.
+
+Dana: Is the CIO the one who'd approve a purchase like this?
+
+Priya: For something small I think I have discretion up to a limit. Past that it goes to him, and past a bigger number there's a capital process I've never personally been through. I've heard it involves finance and a steering committee but I couldn't tell you the mechanics.
+
+Dana: Would it make sense to get him on a call at some point?
+
+Priya: Eventually, sure. Let me get further along first. I don't want to bring him something half-formed — he'll ask questions I can't answer yet and that'll set us back.
+
+Dana: Understood. Aaron, on the technical side — what's the environment actually look like?
+
+Aaron: AWS is the bulk of it, maybe seventy percent. Azure for the corporate side and a couple of the newer analytics workloads. There's a small on-prem footprint at two of the generating stations that isn't going anywhere.
+
+Dana: Any container or Kubernetes footprint?
+
+Aaron: EKS in three accounts. Growing. That's actually part of why I want something better — my current tooling is basically a nightly script and a spreadsheet.
+
+Dana: We can definitely get you off the spreadsheet. Priya, is there anything you've already written down in terms of what you need this to do? Requirements, must-haves, anything the team agreed on?
+
+Priya: No. Not written down. We've talked about it in our staff meeting, and everyone has opinions, but there's no document. I know that's not ideal.
+
+Dana: It's more common than you'd think. Is there a reason it hasn't been written down yet?
+
+Priya: Partly time. Partly that we're not aligned. Aaron cares about the container coverage, I care about the multi-cloud picture, and the compliance folks want the evidence reporting. Nobody's refereed that yet.
+
+Dana: Are you evaluating other vendors alongside us?
+
+Priya: We've seen Cloudwarden. Their rep got to us through one of our board members, actually, so there's some visibility on that one. We did a demo maybe three weeks ago.
+
+Dana: How did it land?
+
+Priya: The compliance team liked the reporting. Aaron was less sold.
+
+Aaron: The container coverage was thin. But I'll say the interface was cleaner than most.
+
+Dana: Do you have a sense of how you'd compare us against them? What would make the difference?
+
+Priya: That's the thing I keep coming back to. I don't think we know yet. Whoever demos best is going to look best, and I'm not sure that's the right way to pick. But we haven't done the work to make it anything more rigorous than that.
+
+Dana: I'd rather you pick us on criteria than on a demo, honestly — we tend to do better the more specific the requirements get. If it's useful, I can send over a vendor-neutral evaluation template. Just categories, you fill in the weights, no ShieldPoint branding on it.
+
+Priya: Send it and I'll take a look. No promises on when I get to it.
+
+Dana: Fair. What would be most useful as a next step from your side?
+
+Aaron: I'd want to see it running against a real account. Not a canned demo environment.
+
+Dana: We can do that — a read-only connection into one AWS account, scoped, takes about twenty minutes to set up and you'd see findings the same day.
+
+Aaron: That I'd be interested in.
+
+Priya: Let's do it in the analytics account, not production. And Aaron, loop in whoever owns that account so we're not surprising anyone.
+
+Dana: I'll send over the setup steps and a scoping doc today. Priya, anything else on your side before we wrap?
+
+Priya: Not right now. Let's see what the scan turns up and go from there.
+
+Dana: Sounds good. Thanks both.
+
+Aaron: Thanks.
+
+--- END OF CALL ---

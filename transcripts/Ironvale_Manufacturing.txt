@@ -1,0 +1,64 @@
+CALL TRANSCRIPT
+Deal: Ironvale Manufacturing
+Call: 1 of 1 — Discovery with Director of Continuous Improvement
+Date: 2026-07-14
+Duration: 29 min
+Attendees: Maya Torres (Northwind Analytics, AE), Greg Sanderson (Ironvale Manufacturing, Director of Continuous Improvement), Lena Okafor (Ironvale Manufacturing, Plant Systems Analyst)
+
+---
+
+Maya: Greg, Lena, thanks for the time. When we connected at the trade show, you mentioned your downtime reporting was, in your words, "a month behind reality." Can you unpack that for me?
+
+Greg: Yeah, so we've got four plants — two in Ohio, one in Tennessee, one in Alabama. Every plant tracks machine downtime differently. Ohio plants log it in the MES, Tennessee is on paper travelers that get keyed in weekly, and Alabama has their own Access database that one guy named Rick maintains.
+
+Lena: I spend most of my month pulling that together. And by the time I've reconciled it, we're making decisions on data that's four or five weeks old.
+
+Maya: What kinds of decisions are getting made on that stale data?
+
+Greg: Maintenance scheduling, mostly. And capital requests. We had a stamping press in Tennessee that was throwing intermittent faults for two months before anyone at corporate saw the pattern. When it finally went down hard, we lost about a week of production on that line.
+
+Maya: Do you know what that week cost?
+
+Greg: Honestly, I'd have to guess. Somewhere in six figures? We don't really track downtime cost per line in a consistent way — that's part of the problem. Finance has their own model but I've never seen it tie back to what we log on the floor.
+
+Maya: That's actually something the platform can help establish — a consistent cost-of-downtime baseline. Who owns that number today? Finance?
+
+Greg: Sort of everyone and no one. Plant managers get beat up about downtime in the monthly ops review, but the dollar figure comes out of corporate FP&A and nobody here quite knows how it's calculated.
+
+Maya: Okay. And if you brought in a platform like ours — whose budget would that come out of?
+
+Greg: That's a good question. Probably corporate ops, maybe IT. It depends on the size. My VP, Tom Brennan, would carry it up the chain, but I honestly don't know where it lands after him. Stuff over a certain size goes to some committee that meets quarterly. I've never been in the room for that.
+
+Maya: Do you know when that committee meets next?
+
+Greg: I'd have to ask Tom. I think there was one in June, so... September, maybe October?
+
+Maya: Got it — worth pinning down, because that could shape our whole timeline. On the technical side, Lena, what would this need to connect to?
+
+Lena: The two MES instances in Ohio are the same vendor, so that should be straightforward. Tennessee is the hard one — there's no system to integrate with until they stop doing paper. Alabama, we'd need to either replace Rick's database or pull from it somehow.
+
+Maya: We've handled paper-to-digital transitions before — usually with tablet-based entry at the line as a bridge. I can bring our solutions engineer in to scope it. Would a working session in the next two weeks make sense?
+
+Lena: Sure, I can do that. I'll loop in the Tennessee plant engineer too.
+
+Maya: Great. Greg, are you looking at other options, or are we the only conversation happening?
+
+Greg: We saw a demo from OpsPulse about a month ago. A couple of our plant managers really liked it — it's flashier than what you showed at the booth, honestly. And their rep has been calling Tom directly.
+
+Maya: What did the plant managers like about it specifically?
+
+Greg: The dashboards, mostly. Look, I'll be straight with you — I don't think anyone here has sat down and written out what we actually need versus what looks good in a demo. It's been more of a vibes thing so far. That worries me a little, because the flashy stuff is what got us burned on our last MES upgrade.
+
+Maya: That's a really useful thing to know about yourselves, honestly. Would it help if I shared an evaluation framework other manufacturers have used — just criteria categories, vendor-neutral, you fill in the weights?
+
+Greg: Maybe. I don't want it to look like we're grading on your rubric, though. Let me think about it.
+
+Maya: Completely fair. So next steps — technical working session with Lena and the Tennessee engineer in the next two weeks. And on your side, finding out when that capital committee meets and what Tom needs to bring to it?
+
+Greg: I'll ask him. He's traveling this week, but I'll catch him at the ops review on the 24th.
+
+Maya: Perfect. I'll send the working session invite and a short list of what we'd want to see from each plant's systems. Thanks, both.
+
+Lena: Thanks, Maya.
+
+--- END OF CALL ---

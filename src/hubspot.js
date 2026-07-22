@@ -89,13 +89,26 @@ export async function searchDealsByName(name, limit = 5) {
   });
 }
 
-/** Create a new deal; return its id. */
+// Every agent-created deal lands in the Sales Pipeline at Qualified To Buy. Without
+// an explicit pipeline + dealstage HubSpot picks for us, so deals arrived wherever
+// the portal defaulted. A fixed intake stage keeps them together and reviewable —
+// a human moves them on from there.
+const DEFAULT_PIPELINE = 'default';
+const INTAKE_STAGE = 'qualifiedtobuy';
+
+/** Create a new deal; return its id. Lands in the Sales Pipeline at Qualified To Buy. */
 export async function createDeal({ name, stage }) {
-  const properties = { dealname: name };
-  if (stage) properties.dealstage = stage;
   const created = await hs('/crm/v3/objects/deals', {
     method: 'POST',
-    body: JSON.stringify({ properties }),
+    body: JSON.stringify({
+      properties: {
+        dealname: name,
+        pipeline: DEFAULT_PIPELINE,
+        // `stage` is our MEDDPICC stage, deliberately not mapped onto the CRM stage:
+        // where the deal sits in HubSpot is a human's call, not the scorer's.
+        dealstage: INTAKE_STAGE,
+      },
+    }),
   });
   return created.id;
 }

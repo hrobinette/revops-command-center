@@ -1,0 +1,110 @@
+CALL TRANSCRIPT
+Deal: Sable Point Insurance
+Call: 1 of 1 — Discovery with Director of Infrastructure
+Date: 2026-07-22
+Duration: 31 min
+Attendees: Dana Whitfield (ShieldPoint, AE), Tom Iverson (Sable Point Insurance, Director of Infrastructure), Alicia Nunes (Sable Point Insurance, Senior Security Engineer)
+
+---
+
+Dana: Tom, Alicia, thanks for the time. Your VP mentioned you'd been looking at posture management for a couple of quarters. What's changed that made this worth a call now?
+
+Tom: We finished migrating the claims platform to Azure in May. That was the last big workload sitting on-prem. So as of about eight weeks ago we're effectively all cloud, and the way we were managing security config doesn't scale to that.
+
+Dana: What does it look like today?
+
+Alicia: We have a set of Azure Policy definitions that someone wrote in 2023, and a monthly export I build by hand into a workbook. I chase down anything that looks wrong by messaging the owning team directly.
+
+Dana: How long does that monthly cycle take you?
+
+Alicia: The export itself is maybe half a day. The chasing is the real cost. I'd say I lose six to eight days a month to follow-up, and that's just me. It pulls in the platform engineers too.
+
+Tom: We actually put a number on this in the spring because I had to justify headcount. Between Alicia's time, the platform team's time, and what we pay our external auditor to re-do work we should be able to hand them, it came to just over four hundred thousand a year. That was the conservative version.
+
+Dana: That's more precise than most teams have. Did that number get used anywhere?
+
+Tom: It went into my budget request. I asked for two more engineers. I got zero, and my VP told me to come back with a tooling answer instead of a headcount answer. So that's what this is.
+
+Dana: That's helpful context. What's the risk side look like — has anything actually gone wrong?
+
+Alicia: Twice this year. A storage account with claims documents in it was set to allow public blob access for nine days in February. We caught it on the monthly sweep, not in real time. Nine days of exposure on PII.
+
+Tom: And in April we had a subscription spun up for a pilot that never got any of the baseline policies applied at all. It ran unmanaged for about six weeks before anyone noticed it existed.
+
+Dana: Did either of those become a reportable event?
+
+Tom: No. We got lucky on both. Our general counsel is aware of the February one and asked what we were doing about it, which is part of why I have any room to move on this at all.
+
+Dana: Understood. How many environments would we be covering?
+
+Alicia: Twenty-two Azure subscriptions, and a small AWS footprint — three accounts — that came from an acquisition we did in 2024. Nobody really owns those three. That's a gap I'd want closed.
+
+Dana: Any container workloads?
+
+Alicia: AKS in six of the subscriptions, and it's growing. The claims platform runs on it now, so that's the crown jewels.
+
+Dana: Let me ask about how a decision like this gets made. If you and I agreed this was the right fit, what happens next?
+
+Tom: I'd take it to my VP, Rachel. She owns the infrastructure budget.
+
+Dana: Does Rachel have signing authority at the level we'd be talking about, or does it go further up?
+
+Tom: Anything over two hundred and fifty thousand goes to our CFO. I'd guess we're under that, but I genuinely don't know what your pricing looks like yet, so I can't tell you which side of the line we're on.
+
+Dana: We'll get you a number early so you're not guessing. Has Rachel been involved in any of this so far?
+
+Tom: Not directly. She knows I'm looking. She hasn't been on a call with a vendor and she hasn't seen a demo.
+
+Dana: Would it make sense to get her into the next one?
+
+Tom: Probably eventually. I'd rather have a point of view first. If I bring her in now, the meeting becomes about whether we should do anything at all, and I've already had that argument internally.
+
+Dana: That's fair. Alicia, on evaluation — has the team written down what this has to do to be considered successful?
+
+Alicia: No. Nothing's written down.
+
+Dana: Is there an informal version? Things you'd personally need to see before you'd sign off?
+
+Alicia: Honestly, I'd know it when I saw it. I haven't sat down and worked it through, and Tom and I have never compared notes on what would make this a yes.
+
+Tom: We haven't. And we've never run a structured evaluation for something like this — historically we take whatever the incumbent offers and move on. There's no scorecard, no requirements document, nothing I could hand you.
+
+Dana: So if two vendors came back strong in different areas, how would you settle it?
+
+Tom: I genuinely don't know. Probably whichever one Rachel felt better about.
+
+Dana: Are you looking at anyone else?
+
+Tom: We had an introductory call with Aegis Cloud about three weeks ago. Our VP knows their regional director from a previous company.
+
+Dana: How did that land?
+
+Alicia: The compliance reporting looked polished. I asked about AKS admission control and the answer was vague enough that I don't think it's there yet. But I was in a forty-five minute call, so I wouldn't bet the decision on my read.
+
+Tom: Rachel liked them. Mostly, I think, because she knows the person.
+
+Dana: That's usually worth more than we'd like to admit. What would help you compare us on something other than that?
+
+Alicia: Put it against the three orphaned AWS accounts. Nobody has looked at those properly in two years. If you find things I can't find myself, that's a real answer and not a slide.
+
+Dana: We can do that read-only, scoped to those three accounts, and have findings back within a day. No commitment, and nothing writes to your environment.
+
+Tom: I'd want to tell the acquisition team first, but I don't see a problem with it.
+
+Dana: On timing — is there a date this needs to land by?
+
+Tom: Our fiscal year starts October first. If it doesn't have budget attached by then it waits another twelve months. That's the deadline that actually matters to me.
+
+Dana: That's useful to know. And procurement — once there's a decision, what does the paperwork path look like?
+
+Tom: Honestly I've only been through it once and it was a renewal, so it was simple. A new vendor at this size, I'd have to ask. There's a security review and something with legal, and I know our standard terms are non-negotiable on a couple of points, but I couldn't tell you the sequence or how long it takes.
+
+Dana: We can pull that thread later. Let me send the scoping steps for the AWS assessment this afternoon, and a pricing range so you know which side of your CFO threshold we're on.
+
+Tom: That'd help. Send the range before you send anything else.
+
+Dana: Will do. Thanks both.
+
+Alicia: Thanks.
+
+--- END OF CALL ---

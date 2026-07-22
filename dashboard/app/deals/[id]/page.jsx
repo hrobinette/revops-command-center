@@ -6,6 +6,7 @@ import { AutoRefresh } from '../../../components/AutoRefresh';
 import { FLAG_ELEMENT, RECOMMENDATION, flagLabel } from '../../../lib/recommendations';
 
 export const dynamic = 'force-dynamic';
+export const fetchCache = 'force-no-store';
 
 const HEALTH_LABEL = { critical: 'Critical', warning: 'Watch', good: 'Healthy' };
 const HEALTH_BADGE = { critical: 'crit', warning: 'warn', good: 'good' };

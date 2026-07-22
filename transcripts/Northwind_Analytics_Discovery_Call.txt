@@ -1,0 +1,51 @@
+Discovery Call Transcript — Northwind Analytics x Cascade Logistics
+Date: July 15, 2026 | Duration: 31 minutes
+Attendees: Maya Torres (AE, Northwind Analytics), Dan Whitfield (VP of Operations, Cascade Logistics), Priya Raman (Director of Supply Chain Systems, Cascade Logistics)
+
+---
+
+Maya Torres (00:45): Thanks for making time, Dan and Priya. Last time we spoke, you mentioned visibility gaps across your regional distribution centers. Can you walk me through what that looks like day to day?
+
+Dan Whitfield (01:12): Sure. We run nine DCs across the Midwest and Southeast. Right now each one reports inventory and throughput in its own spreadsheet, and my team spends probably 15 to 20 hours a week just consolidating that into something leadership can look at. By the time we see a stockout risk, it's usually already happened.
+
+Priya Raman (02:03): And the data quality is inconsistent. Two of our DCs are still on a legacy WMS we inherited from an acquisition, so their numbers come in a different format entirely.
+
+Maya Torres (02:40): Got it. When you say leadership looks at it — who's ultimately consuming this reporting, and who feels the pain most when it's late?
+
+Dan Whitfield (03:05): Our CFO, Rebecca Liu. Honestly, she's the one pushing hardest on this. We missed a quarter-end inventory writedown estimate by about $400K last year because of stale data, and that landed on her desk. She told me to go find a fix and that she'd sponsor it if the numbers make sense.
+
+Maya Torres (03:50): That's helpful context. So if we quantified this — the manual consolidation time, the writedown risk — what would success look like twelve months in?
+
+Dan Whitfield (04:22): Real-time or near-real-time inventory visibility across all nine sites. Cut the manual reporting effort by at least half. And no more surprises at quarter close. If we could show Rebecca a dashboard she trusts, that alone justifies it.
+
+Priya Raman (05:10): I'd add — it needs to integrate with both our current WMS instances. If it can't handle the legacy system, it's a non-starter. That's actually what killed the last vendor we evaluated.
+
+Maya Torres (05:41): Which vendor was that, if you don't mind me asking?
+
+Priya Raman (05:52): FlowStack. Their demo was slick, but during the technical validation they couldn't parse the legacy exports without a six-month custom services engagement. We walked away in the proof-of-concept stage.
+
+Maya Torres (06:30): Understood. Our connector library covers most legacy WMS formats, but I'd want our solutions engineer to validate against a sample export before we promise anything. Would you be open to a technical scoping call next week?
+
+Priya Raman (06:55): Yes — send me the request list and I can pull sanitized exports from both systems.
+
+Maya Torres (07:20): Great. Dan, on the decision side — if the technical validation goes well, what does the rest of your process look like?
+
+Dan Whitfield (07:48): Priya and I make the recommendation. Rebecca signs off on anything over $50K annually, and this would be over that. IT security review is required for any vendor touching operational data — that's usually a two-to-three week turnaround. Legal is quick unless there's something unusual in the MSA.
+
+Maya Torres (08:35): And is there a timeline driving this? Anything on the calendar we should work backwards from?
+
+Dan Whitfield (08:52): Our fiscal year starts November 1. Rebecca wants this budgeted and ideally live before peak season, which for us ramps in early October. So realistically we need a signed agreement by end of August to leave time for implementation.
+
+Maya Torres (09:30): That's a tight but workable window. Last question for now — is FlowStack still in the running, or anyone else?
+
+Dan Whitfield (09:45): FlowStack is out. We're also looking at Meridian Ops, mostly because our board member knows their CEO. Their pricing came in about 20% below your initial estimate, but Priya had concerns about their integration depth.
+
+Priya Raman (10:15): Their connector list is thinner. But price matters — Rebecca will ask why we'd pay more.
+
+Maya Torres (10:40): Fair. When we get to proposal stage, I'll make sure we frame the delta against the writedown exposure and the services cost FlowStack quoted you. Let's get the technical scoping on the calendar first. I'll send over the sample-export request list today and propose times for next Tuesday.
+
+Dan Whitfield (11:05): Works for me. Priya will be the point of contact on the technical side.
+
+Maya Torres (11:15): Perfect. Thanks, both — talk next week.
+
+[End of call]

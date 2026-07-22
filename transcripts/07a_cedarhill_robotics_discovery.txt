@@ -1,0 +1,50 @@
+CALL TRANSCRIPT
+Deal: Cedarhill Robotics
+Call: 1 of 1 — Discovery
+Date: 2026-07-10
+Duration: 34 min
+Attendees: Marcus Cole (ShieldPoint, AE), Priya Nadar (Cedarhill, Head of Security), Devon Ross (Cedarhill, Cloud Platform Lead)
+
+---
+
+Marcus: Priya, Devon — thanks for making time. Priya, you reached out after the manufacturing security webinar. What's driving the interest right now?
+
+Priya: We're scaling fast — we build warehouse automation robots, and the cloud side has grown from a side project into the thing that runs the fleet. Our posture management hasn't kept up. I've got real gaps and I can name them.
+
+Marcus: Please do.
+
+Priya: Two weeks ago we found a misconfigured S3 bucket exposing firmware build artifacts. Nobody caught it for eleven days. That's the kind of thing that keeps me up. And it wasn't a fluke — our Config rules are inconsistent across accounts. We have fourteen AWS accounts now and no unified view.
+
+Marcus: Eleven days of exposure on firmware — that's exactly the blind spot we close. Devon, from the platform side, what does the day-to-day cost look like?
+
+Devon: My team spends about twelve hours a week on manual config review before releases. I measured it last quarter because I was trying to justify a headcount. Twelve hours, sometimes more around a big fleet update.
+
+Marcus: So there's a number attached — twelve hours a week across the platform team. If we gave that time back, where does it go?
+
+Devon: Shipping the roadmap. We're behind on the fleet telemetry work because we keep getting pulled into security firefighting.
+
+Priya: And I'll be honest, the S3 incident got noticed above me. Our VP of Engineering, Karen Whitfield, asked me point-blank what we're doing about cloud posture. So there's air cover now that wasn't there six months ago.
+
+Marcus: Is Karen someone who'd be involved in a decision like this, budget-wise?
+
+Priya: She controls the security budget line, yes. She hasn't been in a vendor conversation yet — right now she's trusting me to go find the right thing. But she'll want to see it before we sign anything.
+
+Marcus: Understood. What would "the right thing" need to prove to you before you'd take it to Karen?
+
+Priya: Multi-account coverage out of the box — I'm not building fourteen integrations by hand. Real-time detection on the exposure stuff, not a nightly batch. And it has to play nice with our existing Security Hub setup, not rip it out. Those are my three.
+
+Marcus: Those are good, clear criteria. Are you looking at anyone else alongside us?
+
+Devon: We demoed one of the big cloud-native platforms last month. Honestly it felt heavy — priced for a company three times our size, and the setup was a slog. We didn't move forward but we haven't formally ruled anyone out.
+
+Marcus: Fair. Here's what I'd propose: a scoped trial on three of your accounts, including whichever one had the S3 issue, so you see real findings on your own environment within a week. Then if it earns it, we bring Karen in with actual data instead of a slide.
+
+Priya: That works. I'd want to move reasonably quickly — the exposure risk isn't getting smaller as we add accounts.
+
+Marcus: Then let's get the trial paperwork started this week. Devon, I'll send you the account-connection steps.
+
+Devon: Great, I'll have them hooked up by Friday.
+
+Priya: Thanks Marcus. This felt like the first one of these that actually understood our problem.
+
+--- END OF CALL ---

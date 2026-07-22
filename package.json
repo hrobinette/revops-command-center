@@ -11,6 +11,8 @@
     "process": "node src/process.js",
     "digest": "node src/digest.js",
     "listen": "node src/slack-listener.js",
+    "retake": "node src/retake.js",
+    "sync-amounts": "node src/sync-amounts.js",
     "preflight": "node src/preflight.js",
     "followup": "node src/followup.js",
     "forecast": "node src/forecast.js",
